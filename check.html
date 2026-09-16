@@ -273,11 +273,30 @@ async function doSearch(){
     return;
   }
 
+  // Identify which session key (S1/S2/S3) each returned row corresponds to,
+  // by matching its label against SESSION_INFO (loaded from session_info table).
+  const keyFor = (s) => Object.keys(SESSION_INFO).find(k => SESSION_INFO[k].label === s.label);
+
+  const toShow = sessions.map(s => ({ key: keyFor(s), label: s.label, time: s.time_range, venue: s.venue }));
+  const shownKeys = new Set(toShow.map(s => s.key));
+
+  // S2 and S3 have been combined into one "Afternoon" slot — if confirmed
+  // for one, also surface the other's time & venue so participants see the
+  // full combined session details.
+  if(shownKeys.has('S2') && !shownKeys.has('S3') && SESSION_INFO['S3']){
+    const s3 = SESSION_INFO['S3'];
+    toShow.push({ key: 'S3', label: s3.label, time: s3.time, venue: s3.venue });
+  }
+  if(shownKeys.has('S3') && !shownKeys.has('S2') && SESSION_INFO['S2']){
+    const s2 = SESSION_INFO['S2'];
+    toShow.push({ key: 'S2', label: s2.label, time: s2.time, venue: s2.venue });
+  }
+
   statusEl.innerHTML = "You're confirmed for:" +
-    sessions.map(s => `
+    toShow.map(s => `
       <div class="session-block">
         <div class="sname">${s.label} session</div>
-        <div class="sdetail">📅 ${EVENT_DATE} · 🕐 ${s.time_range}<br>📍 ${s.venue}</div>
+        <div class="sdetail">📅 ${EVENT_DATE} · 🕐 ${s.time}<br>📍 ${s.venue}</div>
       </div>
     `).join('');
   card.classList.add('confirmed');
