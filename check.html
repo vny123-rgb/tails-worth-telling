@@ -293,7 +293,7 @@ async function renderSessionGroups(){
   if(error){ console.error(error); wrap.innerHTML = '<p class="empty">Could not load the list right now.</p>'; return; }
 
   const assignments = ds.assignments || {};
-  const order = ['S1','S2','S3'];
+  const order = ['S1','S2'];
 
   wrap.innerHTML = order.map(key => {
     const info = SESSION_INFO[key] || { label: key };
