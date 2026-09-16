@@ -185,6 +185,7 @@
   .badges{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px;}
   .badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px;}
   .badge.avail{background:var(--green-soft);color:var(--green);}
+  .badge.exp{background:var(--plum-soft);color:var(--plum);}
   .badge.invalid{background:var(--red-soft);color:#8A2E2E;}
   .badge.assigned{background:var(--plum-soft);color:var(--plum);}
   .badge.overpref{background:var(--amber-soft);color:var(--amber);}
@@ -204,6 +205,11 @@
   .count-pill.full{background:var(--red-soft);color:#8A2E2E;}
   .assigned-list{list-style:none;margin:0;padding:0;}
   .assigned-list li{display:flex;justify-content:space-between;align-items:center;font-size:13px;padding:6px 8px;border-radius:6px;background:var(--paper);margin-bottom:5px;}
+  .assigned-list .assigned-name{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+  .exp-tag{
+    font-size:10px;font-weight:700;padding:1px 7px;border-radius:20px;
+    background:var(--plum-soft);color:var(--plum);white-space:nowrap;
+  }
   .assigned-list li button{border:none;background:none;color:var(--red);font-size:15px;cursor:pointer;line-height:1;padding:0 2px;}
   .assigned-list .empty{color:var(--muted);font-size:12.5px;padding:6px 2px;}
 
@@ -885,7 +891,11 @@ function renderSessionBoxes(){
     const cap = capOf(s);
     pill.textContent = cap !== null ? `${names.length} / ${cap}` : `${names.length}`;
     pill.classList.toggle('full', cap !== null && names.length >= cap);
-    list.innerHTML = names.length ? names.map(n => `<li><span>${properName(n)}</span><button onclick="unassign('${esc(n)}','${s}')">✕</button></li>`).join('') : '<li class="empty">No one assigned yet</li>';
+    list.innerHTML = names.length ? names.map(n => {
+      const person = PEOPLE.find(p => p.name === n);
+      const expTag = person && person.experience === 'Yes' ? '<span class="exp-tag">✓ experienced</span>' : '';
+      return `<li><span class="assigned-name">${properName(n)}${expTag}</span><button onclick="unassign('${esc(n)}','${s}')">✕</button></li>`;
+    }).join('') : '<li class="empty">No one assigned yet</li>';
     const capInput = document.querySelector(`.capInput[data-s="${s}"]`);
     if(document.activeElement !== capInput){
       capInput.value = state.caps[s]===null||state.caps[s]===undefined ? '' : state.caps[s];
@@ -927,6 +937,7 @@ function renderPool(){
     const overPref = assignedTo.length >= pc;
     const badges = [
       `<span class="badge avail">${p.sessions.join('/')} avail.</span>`,
+      p.experience === 'Yes' ? `<span class="badge exp">✓ prior experience</span>` : '',
       p.invalid ? `<span class="badge invalid">⚠ invalid number</span>` : '',
       assignedTo.length ? `<span class="badge assigned">assigned: ${assignedTo.join(', ')}</span>` : '',
       overPref && assignedTo.length ? `<span class="badge overpref">at/over pref (${p.pref})</span>` : ''
