@@ -1610,14 +1610,44 @@ function findVolunteerMatch(rawName){
 function parseEmergencyBlock(block){
   const lines = block.split('\n').map(l => l.trim()).filter(Boolean);
   let volunteerName = '', ecName = '', ecRelationship = '', ecPhone = '';
-  lines.forEach(line => {
+  let volunteerNameSet = false;
+  const consumed = new Array(lines.length).fill(false);
+
+  lines.forEach((line, i) => {
     let m;
-    if(m = line.match(/^Volunteer name\s*:\s*(.+)$/i)) volunteerName = m[1].trim();
-    else if(m = line.match(/^\*?\s*Name\s*:\s*(.+)$/i)) ecName = m[1].trim();
-    else if(m = line.match(/^\*?\s*Relationship\s*:\s*(.+)$/i)) ecRelationship = m[1].trim();
-    else if(m = line.match(/^\*?\s*Contact\s*Number\s*:\s*(.+)$/i)) ecPhone = m[1].replace(/[^0-9]/g, '');
+    if(m = line.match(/^Volunteer name\s*:\s*(.+)$/i)){
+      volunteerName = m[1].trim(); volunteerNameSet = true; consumed[i] = true;
+    }
+    else if(m = line.match(/^\*?\s*Name\s*:\s*(.+)$/i)){ ecName = m[1].trim(); consumed[i] = true; }
+    else if(m = line.match(/^\*?\s*Relationship\s*:\s*(.+)$/i)){ ecRelationship = m[1].trim(); consumed[i] = true; }
+    else if(m = line.match(/^\*?\s*Contact\s*Number\s*:\s*(.+)$/i)){ ecPhone = m[1].replace(/[^0-9]/g, ''); consumed[i] = true; }
+    else if(!volunteerNameSet && !/emergency\s*contact/i.test(line)){
+      // No "Volunteer name:" label found — treat the first unrecognized line as the bare name
+      volunteerName = line.replace(/^[^\w(]+/, '').trim(); // strip any leading emoji/symbols
+      volunteerNameSet = true;
+      consumed[i] = true;
+    }
   });
+
+  // Fallback: no labels at all for the emergency contact fields — assume the remaining
+  // lines are positional, in order: EC name, relationship, contact number.
+  if(!ecName && !ecRelationship && !ecPhone){
+    const remaining = lines.filter((line, i) => !consumed[i] && !/emergency\s*contact/i.test(line));
+    if(remaining[0]) ecName = remaining[0];
+    if(remaining[1]) ecRelationship = remaining[1];
+    if(remaining[2]) ecPhone = remaining[2].replace(/[^0-9]/g, '');
+  }
+
   return { volunteerName, ecName, ecRelationship, ecPhone };
+}
+
+function splitEmergencyBlocks(raw){
+  if(/Volunteer name\s*:/i.test(raw)){
+    // Some or all entries have the label — use it as the reliable per-record split point
+    return raw.split(/(?=Volunteer name\s*:)/i).map(b => b.trim()).filter(Boolean);
+  }
+  // No labels anywhere — assume each entry is separated by a blank line
+  return raw.split(/\n\s*\n/).map(b => b.trim()).filter(Boolean);
 }
 
 let ecPreview = [];
@@ -1625,7 +1655,7 @@ let ecPreview = [];
 function parseEmergencyContacts(){
   const raw = document.getElementById('ecPasteBox').value;
   if(!raw.trim()){ return; }
-  const blocks = raw.split(/(?=Volunteer name\s*:)/i).map(b => b.trim()).filter(Boolean);
+  const blocks = splitEmergencyBlocks(raw);
   ecPreview = blocks.map(block => {
     const parsed = parseEmergencyBlock(block);
     const match = findVolunteerMatch(parsed.volunteerName);
