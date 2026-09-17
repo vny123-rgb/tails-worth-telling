@@ -268,7 +268,7 @@ async function doSearch(){
   const { data: sessions, error: sessErr } = await sb.rpc('get_my_sessions', { p_phone: digits });
 
   if(sessErr || !sessions || sessions.length === 0){
-    statusEl.textContent = "You're registered, but not yet assigned to a session. We'll notify you once sessions are finalized.";
+    statusEl.textContent = "Thank you for registering. We're sorry to inform you that you were not selected for a session this round, but we truly appreciate your interest and hope to have you join us in the future.";
     card.classList.add('pending');
     return;
   }
