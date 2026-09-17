@@ -185,7 +185,6 @@
   .badges{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px;}
   .badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px;}
   .badge.avail{background:var(--green-soft);color:var(--green);}
-  .badge.exp{background:var(--plum-soft);color:var(--plum);}
   .badge.invalid{background:var(--red-soft);color:#8A2E2E;}
   .badge.assigned{background:var(--plum-soft);color:var(--plum);}
   .badge.overpref{background:var(--amber-soft);color:var(--amber);}
@@ -205,11 +204,6 @@
   .count-pill.full{background:var(--red-soft);color:#8A2E2E;}
   .assigned-list{list-style:none;margin:0;padding:0;}
   .assigned-list li{display:flex;justify-content:space-between;align-items:center;font-size:13px;padding:6px 8px;border-radius:6px;background:var(--paper);margin-bottom:5px;}
-  .assigned-list .assigned-name{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
-  .exp-tag{
-    font-size:10px;font-weight:700;padding:1px 7px;border-radius:20px;
-    background:var(--plum-soft);color:var(--plum);white-space:nowrap;
-  }
   .assigned-list li button{border:none;background:none;color:var(--red);font-size:15px;cursor:pointer;line-height:1;padding:0 2px;}
   .assigned-list .empty{color:var(--muted);font-size:12.5px;padding:6px 2px;}
 
@@ -283,6 +277,110 @@
   a.confirm-send.disabled{background:var(--border);color:var(--muted);pointer-events:none;}
   button.confirm-undo{border:none;background:none;color:var(--red);font-size:11px;cursor:pointer;text-decoration:underline;padding:0;}
 
+  /* Manage Volunteers tab */
+  .manage-summary{display:flex;gap:10px;margin:0 0 16px;flex-wrap:wrap;}
+  .manage-summary .chip{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:8px 14px;font-size:13px;}
+  .manage-summary .chip b{font-size:15px;}
+  .manage-item{
+    background:var(--card);border:1px solid var(--border);border-radius:10px;
+    padding:12px 14px;margin-bottom:9px;
+  }
+  .manage-row1{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;}
+  .manage-name{font-weight:700;font-size:14px;}
+  .manage-meta{font-size:11.5px;color:var(--muted);margin-top:1px;}
+  select.attendance-sel{
+    border:1px solid var(--border);border-radius:6px;padding:5px 8px;font-size:12.5px;font-weight:700;
+  }
+  select.attendance-sel.confirmed{background:var(--green-soft);color:var(--green);border-color:#BFE3CE;}
+  select.attendance-sel.declined{background:var(--red-soft);color:#8A2E2E;border-color:#EBC2C2;}
+  select.attendance-sel.pending{background:var(--amber-soft);color:var(--amber);border-color:#E9CFA0;}
+  .plusone-row{
+    margin-top:8px;padding-top:8px;border-top:1px solid #EFEDE6;
+    display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:12.5px;
+  }
+  .plusone-row label{display:flex;align-items:center;gap:5px;font-weight:600;cursor:pointer;}
+  .plusone-fields{display:flex;gap:6px;flex-wrap:wrap;flex:1;}
+  .plusone-fields input{
+    border:1px solid var(--border);border-radius:6px;padding:5px 8px;font-size:12.5px;
+    background:var(--paper);flex:1;min-width:120px;
+  }
+  .plusone-save-btn{
+    border:1px solid var(--green);color:var(--green);background:#fff;border-radius:6px;
+    padding:5px 12px;font-size:12px;font-weight:700;cursor:pointer;
+  }
+  .plusone-save-btn:hover{background:var(--green-soft);}
+
+  .ec-format-example{
+    background:var(--paper);border:1px solid var(--border);border-radius:8px;
+    padding:10px 12px;font-size:12px;color:var(--muted);white-space:pre-wrap;
+    font-family:ui-monospace,Menlo,Consolas,monospace;margin-bottom:12px;line-height:1.5;
+  }
+  #ecPasteBox{
+    width:100%;min-height:140px;border:1px solid var(--border);border-radius:8px;
+    padding:10px 12px;font-size:13px;font-family:inherit;background:var(--card);resize:vertical;
+    margin-bottom:10px;
+  }
+  .parse-btn{
+    background:var(--ink);color:#fff;border:none;border-radius:8px;
+    padding:10px 18px;font-size:13.5px;font-weight:700;cursor:pointer;margin-bottom:16px;
+  }
+  .parse-btn:hover{opacity:0.9;}
+  .ec-preview-item{
+    background:var(--card);border:1px solid var(--border);border-radius:10px;
+    padding:12px 14px;margin-bottom:9px;
+  }
+  .ec-preview-item.no-match{border-color:#EBC2C2;background:var(--red-soft);}
+  .ec-preview-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px;}
+  .ec-preview-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12.5px;margin-bottom:8px;}
+  .ec-preview-grid div b{color:var(--muted);font-weight:600;display:block;font-size:11px;}
+  .ec-match-sel{border:1px solid var(--border);border-radius:6px;padding:5px 8px;font-size:12.5px;max-width:220px;}
+  .ec-save-btn{
+    border:1px solid var(--green);color:var(--green);background:#fff;border-radius:6px;
+    padding:6px 14px;font-size:12px;font-weight:700;cursor:pointer;
+  }
+  .ec-save-btn:hover{background:var(--green-soft);}
+  .ec-save-btn.saved{background:var(--green);color:#fff;border-color:var(--green);}
+  .ec-save-all-row{display:flex;justify-content:flex-end;margin-bottom:16px;}
+  .ec-save-all-btn{
+    background:var(--green);color:#fff;border:none;border-radius:8px;
+    padding:9px 18px;font-size:13px;font-weight:700;cursor:pointer;
+  }
+  .ec-save-all-btn:hover{background:#0e7a40;}
+
+  /* Headcount tab */
+  .headcount-box{
+    background:var(--card);border:1px solid var(--border);border-radius:12px;
+    padding:16px;margin-bottom:14px;
+  }
+  .headcount-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:10px;}
+  .headcount-head h3{font-size:15.5px;margin:0;}
+  .headcount-nums{text-align:right;}
+  .headcount-total{font-size:22px;font-weight:700;}
+  .headcount-total.over{color:var(--red);}
+  .headcount-breakdown{font-size:11.5px;color:var(--muted);}
+  .headcount-cap-note{font-size:11px;font-weight:700;margin-top:2px;}
+  .headcount-cap-note.over{color:var(--red);}
+  .headcount-cap-note.ok{color:var(--green);}
+  .headcount-details{margin-top:8px;}
+  .headcount-details summary{
+    cursor:pointer;list-style:none;font-size:12.5px;font-weight:700;color:var(--green);
+    display:inline-block;
+  }
+  .headcount-details summary::-webkit-details-marker{display:none;}
+  .headcount-details summary:before{content:"▸ ";}
+  .headcount-details[open] summary:before{content:"▾ ";}
+  .headcount-namelist{list-style:none;margin:8px 0 0;padding:0;}
+  .headcount-namelist li{
+    font-size:13px;padding:8px 10px;border-radius:6px;background:var(--paper);
+    margin-bottom:5px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;
+  }
+  .headcount-namelist li.headcount-plusone-li{background:var(--plum-soft);}
+  .headcount-person-main{display:flex;flex-direction:column;gap:1px;}
+  .headcount-person-name{font-weight:700;}
+  .headcount-person-meta{font-size:11.5px;color:var(--muted);}
+  .headcount-exp-tag{font-size:10px;font-weight:700;color:var(--plum);background:var(--card);border:1px solid var(--plum);border-radius:20px;padding:2px 8px;white-space:nowrap;}
+  .headcount-plusone-tag{font-size:10.5px;font-weight:700;color:var(--plum);background:var(--card);border-radius:20px;padding:2px 8px;white-space:nowrap;}
+
   /* Custom modal (replaces native alert/confirm) */
   .modal-overlay{
     position:fixed;inset:0;background:rgba(32,38,31,0.45);
@@ -330,6 +428,8 @@
     <button class="tabbtn" data-tab="assign">Session Assignment</button>
     <button class="tabbtn" data-tab="contacts">Contacts &amp; Export</button>
     <button class="tabbtn" data-tab="confirmation">Confirmation</button>
+    <button class="tabbtn" data-tab="manage">Manage Volunteers</button>
+    <button class="tabbtn" data-tab="headcount">Headcount</button>
   </div>
 
   <!-- OVERVIEW TAB -->
@@ -465,6 +565,42 @@
     <div id="crewPanels"></div>
   </div>
 
+  <!-- MANAGE VOLUNTEERS TAB -->
+  <div class="tabpanel" id="tab-manage">
+    <h2 style="margin-top:0;">Attendance &amp; Plus-1</h2>
+    <p class="section-desc">Update whether each confirmed volunteer has replied to attend, and record any plus-1 they're bringing. Split into the same 3 crews as the Confirmation tab.</p>
+    <div class="crew-tabbar" id="manageCrewTabbar"></div>
+    <div class="top-controls">
+      <input type="text" id="manageSearch" placeholder="Search name or phone…">
+      <select id="manageFilterSel">
+        <option value="all">Show: everyone</option>
+        <option value="Confirmed">Confirmed</option>
+        <option value="Declined">Declined</option>
+        <option value="Not yet responded">Not yet responded</option>
+        <option value="plusone">Bringing a plus-1</option>
+      </select>
+    </div>
+    <div class="manage-summary" id="manageSummary"></div>
+    <div id="manageList"></div>
+
+    <h2>Emergency Contacts</h2>
+    <p class="section-desc">Paste in one or more responses in the format below, then click Parse. Works with a single entry or many pasted together.</p>
+    <div class="ec-format-example">Volunteer name: ABC
+Emergency Contact
+* Name: Yap Chee Hoong
+* Relationship: Father
+* Contact Number: 016-3286497</div>
+    <textarea id="ecPasteBox" placeholder="Paste one or more responses here…"></textarea>
+    <button class="parse-btn" onclick="parseEmergencyContacts()">Parse</button>
+    <div id="ecPreviewWrap"></div>
+  </div>
+
+  <!-- HEADCOUNT TAB -->
+  <div class="tabpanel" id="tab-headcount">
+    <p class="section-desc">Total physical headcount per session — confirmed volunteers plus any plus-1s they're bringing. Compared against your session cap (if set) so you can see if the real headcount exceeds it.</p>
+    <div id="headcountWrap"></div>
+  </div>
+
 </div>
 
 <script>
@@ -494,7 +630,41 @@ function showModal(title, message, isConfirm){
 function appAlert(message, title){ return showModal(title || 'Notice', message, false); }
 function appConfirm(message, title){ return showModal(title || 'Please confirm', message, true); }
 
-const PEOPLE = [{"name": "Khai Ng", "age": 35, "country": "Malaysia", "phone": "601111557192", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "All 3 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Helping with adoption activities, Wherever help is needed", "remark": "Its my birthday month as well, i would like to do something good as well inspired by Joey", "greetingName": "Khai Ng"}, {"name": "CHONG CHING YEE", "age": 27, "country": "Malaysia", "phone": "601133353615", "sessions": ["S1", "S2"], "invalid": false, "pref": "2 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "Yes", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Helping with adoption activities, Wherever help is needed", "remark": "I love dogs. I want to make them feel happy and loved \u2764\ufe0f", "greetingName": "Chong Ching Yee"}, {"name": "CHIN Shu HUI (JLSC)", "age": 27, "country": "Malaysia", "phone": "60185735541", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "All 3 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "Yes", "helpWith": "Wherever help is needed", "remark": "HELPING doesn't need a reason, if we just give out some of our energy but can see happiness on orhers face, its worth", "greetingName": "Chin Shu Hui"}, {"name": "Jessica Tan (JLSC)", "age": 26, "country": "Malaysia", "phone": "60172192587", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "All 3 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "Yes", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Helping with adoption activities, Wherever help is needed", "remark": "To provided as much as possible as I can help giving my energy to help", "greetingName": "Jessica Tan"}, {"name": "Teoh Shu Hua", "age": 30, "country": "Malaysia", "phone": "60124185918", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "All 3 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Wherever help is needed", "remark": "I saw your volunteer call and immediately thought \u2014 this sounds like something I\u2019d regret not trying.    I work in adventure travel, love being outdoors, and collecting little stories along the way.    I may not have the most \u201cvolunteer-looking\u201d resume, but I\u2019m pretty adaptable, used to coordinating things, and always happy to get my hands dirty and figure things out as I go. More personally, I had a dog back in my hometown more than 15 years ago. After that, I never really dared to have another pet. I think, deep down, I was afraid of getting attached, and eventually having to experience that goodbye again.    But maybe that\u2019s also why I feel like I want to step into this little world now \u2014 not necessarily to replace what I\u2019ve lost, but to see what I can give, even in a small way. I\u2019d love to know if there\u2019s a way I can be useful, learn along the way, and hopefully contribute something meaningful. Would love to be considered! ", "greetingName": "Teoh Shu Hua"}, {"name": "Aliff Zaqwan Shaifulnizam", "age": 25, "country": "China", "phone": "8615018545695", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "All 3 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Helping with adoption activities, Wherever help is needed", "remark": "I would like to join Tails Worth Telling because I really love animals and their presence. I wish to do my part to make a meaningful contribution to help the animals in need. Plus, I just came came back from my postgraduate studies and am not back to work yet so I have plenty of free time. Volunteering for such a good cause would also help improve my mental wellbeing.", "greetingName": "Aliff Zaqwan Shaifulnizam"}, {"name": "ONG ZHI YAN", "age": 28, "country": "Malaysia", "phone": "60194754822", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "All 3 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Bathing the animals, Walking the dogs, Feeding & caring for the animals, Helping with adoption activities, Wherever help is needed", "remark": "I\u2019d love to join Tails Worth Telling because I\u2019ve always enjoyed being around animals and would love to spend some time helping out at the shelter. I\u2019m currently taking a pet grooming course as well, so I\u2019m hoping to gain more hands-on experience with different dogs, understand shelter care better, and learn how I can be more helpful to them. Even if it\u2019s just helping with the dogs, cleaning, or giving them some attention and playtime, I\u2019d be happy to contribute wherever needed.", "greetingName": "Ong Zhi Yan"}, {"name": "NG LIAN XUA", "age": 36, "country": "Malaysia", "phone": "60167340720", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "All 3 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Wherever help is needed", "remark": "I adopted a fur baby who sadly passed away in July. After losing him, I wanted to do something meaningful in his memory by helping more animals in need. I hope to give them the same love and care I gave him. \u2661", "greetingName": "Ng Lian Xua"}, {"name": "Wong Wei Wen", "age": 30, "country": "Singapore", "phone": "6586554814", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "1 session", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "Yes", "helpWith": "Wherever help is needed", "remark": "Yes", "greetingName": "Wong Wei Wen"}, {"name": "Wong Sit Lai", "age": 38, "country": "Malaysia", "phone": "60162313745", "sessions": ["S2", "S3"], "invalid": false, "pref": "2 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Helping with adoption activities, Wherever help is needed", "remark": "I want to spend time with the dogs and make them feel cared for and loved. I hope to bring them some warmth, comfort, and happiness", "greetingName": "Wong Sit Lai"}, {"name": "Leong yee ling", "age": 32, "country": "Malaysia", "phone": "60162010138", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "All 3 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Wherever help is needed", "remark": "To give love to the animals and support to shelters \u2764\ufe0f", "greetingName": "Leong Yee Ling"}, {"name": "Tan Jia Yee", "age": 23, "country": "Malaysia", "phone": "60103781179", "sessions": ["S1", "S2"], "invalid": false, "pref": "2 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "Yes", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals", "remark": "I\u2019ve always loved animals, especially dogs and cats. I previously worked at a veterinary clinic as a nurse assistant, which gave me valuable experience caring for animals. All of my dogs at home are adopted, and I also regularly feed stray dogs that I come across by the roadside. I\u2019ve always enjoyed spending time with animals and helping them whenever I can. I\u2019d love to join Tails Worth Telling because I usually do these activities on my own, and I\u2019d really like to experience them together with Joey and the team. I believe being part of a group makes the experience more meaningful and, of course, a lot more fun! \u2661", "greetingName": "Tan Jia Yee"}, {"name": "Chong Wei Fu", "age": 40, "country": "Malaysia", "phone": "60179868966", "sessions": ["S2", "S3"], "invalid": false, "pref": "2 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Helping with adoption activities, Wherever help is needed", "remark": "The past few years have brought me through quite a few ups and downs, and they have made me realize that there are still many things I want to experience and learn in life, including discovering more about myself.  I\u2019ve always found peace and comfort when I\u2019m around dogs and animals. I would like to volunteer at the shelter not only because I enjoy being around them, but also because I want to contribute, help animals in need, and learn more about how to care for them properly.  I hope this experience will allow me to step out of my comfort zone, learn something new, and spend my time doing something meaningful.", "greetingName": "Chong Wei Fu"}, {"name": "Leong Jia Xuan (Debbie)", "age": 28, "country": "Malaysia", "phone": "60199838286", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "All 3 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "Yes", "helpWith": "Wherever help is needed", "remark": "I always loved animals regardless what type of animals it is. I do own a golden retriever right now and always been following your story with Ah Fook, I do agree that Goldies are the best breed ever! Every month I\u2019ll donate some money to animal shelters. Some days whenever I saw dead corpses of dogs and cats on the street, I would find a place to bury it with my fam. Being a vet has always been my ambition and too bad I\u2019m scared of blood hence I never get a chance to become one. I love pets so participating in an animal shelter would contribute my love to them and most importantly is to let them feel loved and hopefully find a furever home for them. Hopefully I get to join this volunteer to meet new people and new friends, and to help out every animals in the shelter. All my life I\u2019ve always been having dogs at home , my late poodle and a stray dog which I brought it home when I was in high school because I found him at a drain, all covered with cement and barely living. Brought it to the vet and grooming, and turns out he\u2019s once of ours. Passed away 2 years ago at age 14 \ud83e\udebd", "greetingName": "Debbie"}, {"name": "Chang Wern Ying", "age": 25, "country": "Malaysia", "phone": "601136448068", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "All 3 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "Yes", "helpWith": "Wherever help is needed", "remark": "I used to study aboard in Korea and in my university we do have volunteering events for stray dogs and cats, i do feel if malaysia have similar events will be nice to raise the awareness of people regarding to this issue. The most important things is i want to show supportiveness to joey leong efforts for this volunteer work and hopefully malaysia can always get better in caring more about different things matter to society ^^", "greetingName": "Chang Wern Ying"}, {"name": "Lee Ai Lin", "age": 35, "country": "Malaysia", "phone": "60162215375", "sessions": ["S1"], "invalid": false, "pref": "2 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals", "remark": "I hope my small helping hand can support them in any way I can, while bringing them a little extra care and comfort", "greetingName": "Lee Ai Lin"}, {"name": "Toh Jia Yong", "age": 30, "country": "Malaysia", "phone": "60193818668", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "All 3 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Wherever help is needed", "remark": "I\u2019ve previously adopted a dog from a shelter and he is just so sweet and lovely ! As a dog owner myself, I always wanted to help those less fortunate furkids that have not find their forever home yet! ", "greetingName": "Toh Jia Yong"}, {"name": "Tan Wei Ni", "age": 38, "country": "Singapore", "phone": null, "sessions": ["S1"], "invalid": true, "pref": "1 session", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Wherever help is needed", "remark": "Meaningful & fruitful, dog lover \u2661 ", "greetingName": "Tan Wei Ni"}, {"name": "Lim Tze Wei", "age": 32, "country": "Malaysia", "phone": "60102622386", "sessions": ["S1"], "invalid": false, "pref": "1 session", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Helping with adoption activities, Wherever help is needed", "remark": "I love dogs, I have a dog too.", "greetingName": "Lim Tze Wei"}, {"name": "Yap Mei Teng", "age": 25, "country": "Malaysia", "phone": "60169698632", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "All 3 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Helping with adoption activities, Wherever help is needed", "remark": "I\u2019ve always been an animal lover. I have cats of my own and I also feed stray cats whenever I can. Volunteering has always been on my bucket list, so when I finally got the opportunity to take part, I really wanted to give it a try. It\u2019s something meaningful that I\u2019d genuinely love to experience and contribute to.", "greetingName": "Yap Mei Teng"}, {"name": "SAMMI (JLSC)", "age": 32, "country": "Malaysia", "phone": "60146328627", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "All 3 sessions", "joinAs": "Both \u2661", "experience": "Yes", "helpWith": "Wherever help is needed", "remark": "Simply because I love animals ", "greetingName": "Sammi"}, {"name": "Gwen Neng", "age": 29, "country": "Malaysia", "phone": "601112404330", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "All 3 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Cleaning the shelter, Walking the dogs, Feeding & caring for the animals, Helping with adoption activities", "remark": "My family adopted my late dog when she was around 14, and she was with us for about three years before she passed away. We saw how much she changed before and after being adopted, and I\u2019d really like to try and do something to help the others, even if it\u2019s just in a small way.", "greetingName": "Gwen Neng"}, {"name": "Alycia Chan", "age": 36, "country": "Malaysia", "phone": "60174829453", "sessions": ["S1"], "invalid": false, "pref": "1 session", "joinAs": "Both \u2661", "experience": "No", "helpWith": "Bathing the animals, Walking the dogs, Feeding & caring for the animals, Helping with adoption activities", "remark": "I hope I can contribute to the cute lives, they deserve a better treatment ", "greetingName": "Alycia Chan"}, {"name": "Pua Hien Tiong", "age": 37, "country": "Malaysia", "phone": "60168756135", "sessions": ["S1"], "invalid": false, "pref": "1 session", "joinAs": "Both \u2661", "experience": "No", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals, Helping with adoption activities", "remark": "Wish to help to lifes", "greetingName": "Pua Hien Tiong"}, {"name": "Leong Kong Fai", "age": 35, "country": "Malaysia", "phone": "60123808605", "sessions": ["S1"], "invalid": false, "pref": "1 session", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "Yes", "helpWith": "Bathing the animals, Feeding & caring for the animals, Wherever help is needed", "remark": "Hope can help fur kids ", "greetingName": "Leong Kong Fai"}, {"name": "Wong Sing", "age": 41, "country": "Malaysia", "phone": "60194903963", "sessions": ["S3"], "invalid": false, "pref": "1 session", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Helping with adoption activities, Wherever help is needed", "remark": "I love doggy", "greetingName": "Wong Sing"}, {"name": "Hoe Yau Phang (JLSC)", "age": 39, "country": "Malaysia", "phone": "60193310141", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "All 3 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "Yes", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Helping with adoption activities, Wherever help is needed", "remark": "Stray Tails are to lack of being care, I feel want to do a little help for them after putting my feet in their shoe", "greetingName": "Hoe Yau Phang"}, {"name": "Joey", "age": 26, "country": "Malaysia", "phone": "60109486878", "sessions": ["S1", "S2"], "invalid": false, "pref": "2 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Helping with adoption activities, Wherever help is needed", "remark": "I\u2019ve always had a soft spot for animals. I have my own adopted dog, and I also regularly feed stray dogs whenever I come across them. I\u2019ve even been to a factory before to help some puppies there \u2014 I brought them home to deworm and bathe them, and eventually helped find them loving homes.  I\u2019ve actually wanted to volunteer at a shelter for quite some time, but since I usually do things alone, I never really had the courage to go by myself.  So when I came across this activity, I thought it would be a great opportunity to finally take that first step \u2014 and be able to do it together with others. I\u2019m really happy to have the chance to be part of this. \u2764\ufe0f", "greetingName": "Joey"}, {"name": "TIFFANY CHIN", "age": 29, "country": "Malaysia", "phone": "60143789491", "sessions": ["S1", "S2"], "invalid": false, "pref": "2 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Helping with adoption activities, Wherever help is needed", "remark": "Volunteering at a shelter is something I\u2019ve always wanted to do, but I just haven\u2019t had the opportunity to do so yet.", "greetingName": "Tiffany Chin"}, {"name": "Chiew Khar Xin", "age": 25, "country": "Malaysia", "phone": "60182780284", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "All 3 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Helping with adoption activities, Wherever help is needed", "remark": "To help out more animals that need helps", "greetingName": "Chiew Khar Xin"}, {"name": "Ling Chew Sia", "age": 36, "country": "Malaysia", "phone": "60176133580", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "All 3 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Helping with adoption activities, Wherever help is needed", "remark": "Animals have always had a special place in my heart. I love being around them and strongly believe that they deserve kindness, care and a safe life, just as we do. I am vegetarian because my love for animals has influenced the way I choose to live, and volunteering at a shelter feels like a meaningful way to turn that love into action. I would be very happy to spend my time caring for and helping animals who need it.", "greetingName": "Ling Chew Sia"}, {"name": "Loo Xin Rong", "age": 26, "country": "Malaysia", "phone": "60165981512", "sessions": ["S1", "S2"], "invalid": false, "pref": "2 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Bathing the animals, Walking the dogs, Feeding & caring for the animals, Helping with adoption activities", "remark": "As myself is a dogs lover & volunteering at a dog shelter is always been my wishlist", "greetingName": "Loo Xin Rong"}, {"name": "Loo Xin Yi", "age": 28, "country": "Malaysia", "phone": "60165242646", "sessions": ["S1", "S2"], "invalid": false, "pref": "2 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Bathing the animals, Walking the dogs, Feeding & caring for the animals, Helping with adoption activities", "remark": "I\u2019ve loved dogs since I was young, and volunteering at a dog shelter has always been on my wishlist. I\u2019d love the opportunity to spend time with dogs, help with cleaning and adoption, and learn more about proper dog care. Although I don\u2019t have much experience bathing dogs, I\u2019m willing and excited to learn!", "greetingName": "Loo Xin Yi"}, {"name": "Xt Thong", "age": 32, "country": "Malaysia", "phone": "60189498582", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "1 session", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Wherever help is needed", "remark": "I like puppies", "greetingName": "Xt Thong"}, {"name": "Shirley tan pei fong", "age": 34, "country": "Malaysia", "phone": "60165758474", "sessions": ["S2", "S3"], "invalid": false, "pref": "2 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Helping with adoption activities, Wherever help is needed", "remark": "Want to help these beautiful creatures so much, want to help since long time ago but don\u2019t know how to start. Hope can gain experience by joining u guys, and then I can also arrange to go with my friends as well in future too!", "greetingName": "Shirley Tan"}, {"name": "Stephen Phun", "age": 38, "country": "Malaysia", "phone": "60166808474", "sessions": ["S2", "S3"], "invalid": false, "pref": "2 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Helping with adoption activities, Wherever help is needed", "remark": "Want to help all cats n dogs so much , wanna help since long time ago with my girl friends (Shirley tan), but don\u2019t know how to start. We would like to gain experience by joining u guys,n then we also can arrange to help other shelter in future with our friends!", "greetingName": "Stephen Phun"}, {"name": "Michelle Low Li Ying", "age": 25, "country": "Malaysia", "phone": "60103001234", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "All 3 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "Yes", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Helping with adoption activities, Wherever help is needed", "remark": "No reason. The fur kids need us. I love randomly joining shelter activities and meeting like-minded people who share the same love for animals", "greetingName": "Michelle Low"}, {"name": "Lynette Wong Wai Mun", "age": 35, "country": "Malaysia", "phone": "60193283511", "sessions": ["S2"], "invalid": false, "pref": "1 session", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Helping with adoption activities, Wherever help is needed", "remark": "Would love to join and support the cause. I like to be around animals but I can't keep a pet where I stay now. ", "greetingName": "Lynette Wong"}, {"name": "Jasmine Chua Yi Pei", "age": 25, "country": "Malaysia", "phone": "60182626193", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "2 sessions", "joinAs": "Both \u2661", "experience": "No", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals", "remark": "I have always wanted to join as an volunteer to help out dog shelter home as i believe they deserve to be seen & taken care of.", "greetingName": "Jasmine Chua"}, {"name": "Winnie Loke Mei Yee", "age": 24, "country": "Malaysia", "phone": "60178839338", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "All 3 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "Yes", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Helping with adoption activities, Wherever help is needed", "remark": "I am someone who likes helping animals who might be suffering from starvation and the lack of love from an owner or a previous owner. I would like to try my best to help them and be needed whenever it is required", "greetingName": "Winnie Loke"}, {"name": "Duwee Xin Yu", "age": 20, "country": "Malaysia", "phone": "601111089088", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "All 3 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "Yes", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Helping with adoption activities, Wherever help is needed", "remark": "Because shelter always need a helping hand, so I wish I could be a part of it\u2764\ufe0f", "greetingName": "Duwee Xin Yu"}, {"name": "Yong wing han", "age": 31, "country": "Malaysia", "phone": "60169823490", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "All 3 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Wherever help is needed", "remark": "I\u2019ve always loved dogs. I had a dog who was with me for 15 years, and sadly, he passed away. Since then, I haven\u2019t felt ready to have another dog of my own. But I still love being around dogs and would really like to spend some time with them. I thought volunteering would be a meaningful way for me to be around dogs again, while also helping those who need love and care. I would love to give it a try and do whatever I can to help.", "greetingName": "Yong Wing Han"}, {"name": "Goldie Leow", "age": 43, "country": "Malaysia", "phone": "60194382875", "sessions": ["S3"], "invalid": false, "pref": "1 session", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals, Wherever help is needed", "remark": "I had a pet dog when I was young. Since I am not able to adopt any at the moment, I could at least care for them in the way I could for now.", "greetingName": "Goldie Leow"}, {"name": "CHOONG HUI", "age": 25, "country": "Malaysia", "phone": "60127341689", "sessions": ["S2"], "invalid": false, "pref": "1 session", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Walking the dogs, Feeding & caring for the animals, Wherever help is needed", "remark": "I\u2019d like to bring my partner along as volunteer as she mentioned that she\u2019d like to do something meaningful on her 30th birthday and she likes doggoss \ud83e\udd79", "greetingName": "Choong Hui"}, {"name": "Giny Say", "age": 29, "country": "Malaysia", "phone": "60168093642", "sessions": ["S1", "S2"], "invalid": false, "pref": "2 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Cleaning the shelter, Carrying & distributing supplies, Helping with adoption activities, Wherever help is needed", "remark": "Hi, I\u2019m actually quite afraid of dogs, but I\u2019d still really love to lend a helping hand and support the charity event.   If there are any tasks that don\u2019t require direct interaction with the dogs, I\u2019d be more than happy to help.  Would love to contribute and be part of the event in any way I can. Thank you. ", "greetingName": "Giny Say"}, {"name": "Jeniel Ko", "age": 20, "country": "Malaysia", "phone": "60199326377", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "All 3 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "Yes", "helpWith": "Bathing the animals, Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Wherever help is needed", "remark": "long story short, I LOVE animals, and ive did some volunteer/handing out supplies w my friends", "greetingName": "Jeniel Ko"}, {"name": "Henry Tan Ang Hwe", "age": 40, "country": "Malaysia", "phone": "60163286029", "sessions": ["S1"], "invalid": false, "pref": "1 session", "joinAs": "Both \u2661", "experience": "No", "helpWith": "Feeding & caring for the animals, Carrying & distributing supplies", "remark": "To help out the activity ", "greetingName": "Henry Tan Ang Hwe"}, {"name": "Charlotte", "age": 32, "country": "Malaysia", "phone": "60146416370", "sessions": ["S2"], "invalid": false, "pref": "1 session", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "Yes", "helpWith": "Bathing the animals, Walking the dogs, Feeding & caring for the animals, Helping with adoption activities", "remark": "Spread the love to the animals and helping the shelter owner", "greetingName": "Charlotte"}, {"name": "Bernice chong", "age": 26, "country": "Malaysia", "phone": "60124853316", "sessions": ["S1", "S2"], "invalid": false, "pref": "2 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Wherever help is needed", "remark": "Creating positive impact has always been a core value and purpose of mine. Helping out at animal shelter is one that i have never done before, and as a pet owner myself i would love to share some love and care to those without a home too.", "greetingName": "Bernice Chong"}, {"name": "Annika", "age": 31, "country": "Singapore", "phone": "6586836052", "sessions": ["S1"], "invalid": false, "pref": "1 session", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals", "remark": "I\u2019ve always wanted to volunteer at dog shelter but my availability does not allow, until this date ", "greetingName": "Annika"}, {"name": "Tan Jia Jin", "age": 25, "country": "Malaysia", "phone": "60103662823", "sessions": ["S3"], "invalid": false, "pref": "1 session", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Bathing the animals, Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Helping with adoption activities", "remark": "I have been a passionate dog lover since childhood, and seeing animals without homes deeply moves me. I want to volunteer my time to provide comfort, care, and companionship to these shelter dogs, ensuring they feel loved, valued, and safe while they wait for their forever homes.", "greetingName": "Tan Jia Jin"}, {"name": "Lau Pei Yuan", "age": 33, "country": "Malaysia", "phone": "60122354889", "sessions": ["S1"], "invalid": false, "pref": "1 session", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "Yes", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Helping with adoption activities, Wherever help is needed", "remark": "This is a very meaningful event and I am interested to take part in it.", "greetingName": "Lau Pei Yuan"}, {"name": "Ryan Tang Junwen", "age": 26, "country": "Malaysia", "phone": "60122182900", "sessions": ["S1", "S2"], "invalid": false, "pref": "2 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Helping with adoption activities, Wherever help is needed", "remark": "To understand what the helps that dog shelters need.", "greetingName": "Ryan Tang Junwen"}, {"name": "Cheng Hui Yan", "age": 31, "country": "Malaysia", "phone": "60173240146", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "All 3 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "Yes", "helpWith": "Wherever help is needed", "remark": "I want to do anything I can to help animals in need. In a world that can sometimes be cruel to them, I want to give them the love, care, and hope they deserve. Even if I can make a small difference in their lives and help them feel safe and loved.", "greetingName": "Cheng Hui Yan"}, {"name": "Lee Shin Yee", "age": 30, "country": "Malaysia", "phone": "60175057297", "sessions": ["S2", "S3"], "invalid": false, "pref": "2 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "Yes", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Helping with adoption activities, Wherever help is needed", "remark": "No one can do everything, but by joining hands, we can change the entire world for these shelter animals. I would love the opportunity to join your team as a volunteer and contribute whatever I can to help these dogs find their path to a loving home.", "greetingName": "Lee Shin Yee"}, {"name": "Michelle Fu", "age": 31, "country": "Malaysia", "phone": "60129866157", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "2 sessions", "joinAs": "Both \u2661", "experience": "No", "helpWith": "Wherever help is needed", "remark": "I\u2019ve always loved animals and I\u2019ve been looking for an opportunity to do something meaningful and hands on to help them. I\u2019d love to meet the animals, learn more about caring for them and contribute wherever I can! \ud83e\ude75 ", "greetingName": "Michelle Fu"}, {"name": "Chloe Yap", "age": 30, "country": "Malaysia", "phone": "60102206066", "sessions": ["S1", "S2"], "invalid": false, "pref": "2 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Wherever help is needed", "remark": "Just to help ", "greetingName": "Chloe Yap"}, {"name": "Jessica Menisha Gomez", "age": 25, "country": "Malaysia", "phone": "60126687247", "sessions": ["S3"], "invalid": false, "pref": "1 session", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Helping with adoption activities, Wherever help is needed", "remark": "I\u2019ve always wanted to volunteer at an animal shelter, however was a little nervous since I\u2019ve only had rescue experience so far, no volunteering experience. It was something I wanted to start regularly in 2026 but couldn\u2019t find the right way to start, seeing Joey\u2019s story reignited that determination I had to want to regularly start volunteering \u2764\ufe0f", "greetingName": "Jessica Menisha Gomez"}, {"name": "Kan Fung Yi", "age": 28, "country": "Malaysia", "phone": "60189531018", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "All 3 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Wherever help is needed", "remark": "I really wanted to adopt a dog since last year but I couldn\u2019t really do it because I got no experience taking care of animals. I have asked around to become volunteer but no one has came back to me. Hopefully throughout this experience, I would be able to learn, be confident that I can take care of animals, and eventually adopt 1 myself.", "greetingName": "Kan Fung Yi"}, {"name": "Lee Yi Hui", "age": 36, "country": "Malaysia", "phone": "60129994465", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "All 3 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Wherever help is needed", "remark": "My wife really wanted to get a dog but both of us got no experience with animals. My family and hers both do not have animals at home. I\u2019m in the office most of the time and my wife work from home every single day so she was hoping she could adopt at least 1 dog in the future to keep her company. We both really wanted to adopt but we really have no experience at all so hopefully we can gain experience throughout this volunteer session, make it a long term volunteer work, and adopt at least 1 animal from the shelter in the future.", "greetingName": "Lee Yi Hui"}, {"name": "Yap Pei Shan", "age": 30, "country": "Malaysia", "phone": "60163066833", "sessions": ["S2", "S3"], "invalid": false, "pref": "2 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Helping with adoption activities, Wherever help is needed", "remark": "I\u2019m really an animal lover, and I strongly support Joey\u2019s statements.  Although I\u2019ve never volunteered at an animal shelter before, I\u2019ve always tried to do what I can \u2014 feeding stray animals, bringing them to the vet when they need medical attention, and simply giving them some love and care.  They need love, and more love. That\u2019s it.  And I really hope we can continue to bring more awareness to society \u2014 to show people just how cute, loving and harmless these animals can be. They deserve to be loved, not feared or judged.  Sometimes, a little kindness can mean so much to them. ", "greetingName": "Yap Pei Shan"}, {"name": "Hoe Jin Wen", "age": 28, "country": "Malaysia", "phone": "60182731024", "sessions": ["S2", "S3"], "invalid": false, "pref": "2 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Helping with adoption activities, Wherever help is needed", "remark": "I hope every adopted dogs are handled with care and love, ensuring they receive the attention, comfort, and feel part of a loving family.", "greetingName": "Hoe Jin Wen"}, {"name": "Yap Hui Yi", "age": 26, "country": "Malaysia", "phone": "60102750990", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "All 3 sessions", "joinAs": "Both \u2661", "experience": "No", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Helping with adoption activities, Wherever help is needed", "remark": "I would love to join Tails Worth Telling because I genuinely care about dogs and want to contribute my time and energy to helping animals in need. Even though I don\u2019t have previous shelter experience, I\u2019m very willing to learn, help with any tasks needed, and give the dogs as much care, patience, and attention as I can. I believe every dog deserves to feel safe, loved, and cared for, and I would be really grateful for the opportunity to make even a small difference in their lives.", "greetingName": "Yap Hui Yi"}, {"name": "Ng Jun Wei", "age": 31, "country": "Malaysia", "phone": "60162900112", "sessions": ["S2", "S3"], "invalid": false, "pref": "2 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Wherever help is needed", "remark": "Recently got a dog mama just gave birth of puppies somewhere nearby my living area. Seeing all the puppies growing each day, starting to run and jump. I contacted few shelters to pick them up cause I really scare in one day they will be putting down. But all the shelters are fully occupied. So I felt bad for them couldn\u2019t find a home and hence I would like to join this activity to spread loves to dog dog \ud83e\udd79", "greetingName": "Ng Jun Wei"}, {"name": "Anabelle Ng", "age": 31, "country": "Malaysia", "phone": "60128866711", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "All 3 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Wherever help is needed", "remark": "\u5176\u5b9e\u4e4b\u524d\u5c31\u4e00\u76f4\u5f88\u60f3\u53bb\u51c0\u6ee9\uff0c\u4f46\u5355\u51ed\u4e2a\u4eba\u529b\u91cf\u6709\u9650\uff1b\u73b0\u5728\u770b\u5230\u6709\u9700\u8981\u5e2e\u624b\uff0c\u94c1\u5b9a\u8981\u8fc7\u6765\u5e2e\u5fd9\u7684\uff0c\u8fd9\u6837 community \u5c0f\u5c0f\u7684\u793e\u7fa4\u624d\u4f1a\u8d8a\u6765\u8d8a\u597d\uff01\u4e5f\u5e0c\u671b\u5927\u5bb6\u90fd\u80fd\u8d8a\u6765\u8d8a\u597d\uff0c\u5c3d\u6211\u7684\u7ef5\u529b\uff01", "greetingName": "Anabelle Ng"}, {"name": "Lau shiau hui", "age": 30, "country": "Malaysia", "phone": "60126945133", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "All 3 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Wherever help is needed", "remark": "\u4ece\u6211\u61c2\u4e8b\u4ee5\u6765\u5c31\u5f88\u50cf\u4eb2\u529b\u4eb2\u8eab\u53bb\u5e2e\u52a9\u9700\u8981\u5e2e\u52a9\u7684\u4eba\u6216\u6bdb\u5b69\uff0c\u53ea\u662f\u611f\u89c9\u81ea\u5df2\u4e00\u4e2a\u4eba\u80fd\u529b\u4e0d\u8db3\uff0c\u4e00\u76f4\u4e0d\u6562\u5f00\u59cb\u4e5f\u5f88\u8ff7\u832b\u4e0d\u77e5\u9053\u600e\u4e48\u53bb\u505a\uff0c\u770b\u5230\u4f60\u7684\u62db\u52df\uff0c\u6211\u60f3\u5927\u80c6\u5730\u53bb\u5c1d\u8bd5\u548c\u5e2e\u52a9\u3002\u5e0c\u671b\u53ef\u4ee5\u52a0\u5165\u548c\u62db\u5230\u66f4\u591a\u50cf\u6211\u4e00\u6837\u60f3\u5f00\u59cb\u5f88\u4e45\u4f46\u4e0d\u77e5\u9053\u600e\u4e48\u53bb\u5f00\u59cb\u7684\u4eba", "greetingName": "Lau Shiau Hui"}, {"name": "Lee Kar Yi", "age": 30, "country": "Malaysia", "phone": "60164021103", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "2 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Helping with adoption activities, Wherever help is needed", "remark": "I have been feeding strays around my area regularly and I always wanted to help more but was pretty clueless where to start. Discovered this event via IG, and I think it\u2019s gonna be a really good opportunity for me to contribute physically and get to know more about shelters! BTW, the time / session of mine is negotiable. Thank you \ud83e\udd0e", "greetingName": "Lee Kar Yi"}, {"name": "Lai Wuan Yee", "age": 28, "country": "Malaysia", "phone": "60167405060", "sessions": ["S1"], "invalid": false, "pref": "1 session", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Helping with adoption activities, Wherever help is needed", "remark": "Because I do really love animals and I wish to experience how\u2019s the animal shelter works", "greetingName": "Lai Wuan Yee"}, {"name": "Yong Phang Kian (Kent)", "age": 30, "country": "Malaysia", "phone": "60163737683", "sessions": ["S1", "S2"], "invalid": false, "pref": "2 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Helping with adoption activities, Wherever help is needed", "remark": "To be honest, this is my very first-time to join such charity activity. I have always had the intention of getting involved in charity work or volunteering to help people and animals, but somehow, I always stopped at the thinking stage. I would think about it, tell myself that I should do something, and then hesitate to take that first step. I think a big part of it is because I\u2019m naturally an introvert. I can be quite shy, and I tend to worry a lot about meeting new people, not knowing what to do, whether I can contribute enough, or whether I will feel out of place. Sometimes, all these thoughts become reasons for me not to take action. However, this time, I really hope I can take that very first step and finally turn my intention into action. And somehow, I came across Joey\u2019s story so suddenly. So, for this round, I decided to give myself a chance. Maybe this will be the beginning of something I have always wanted to do but was too afraid to start. I hope that through this experience, I can overcome a little bit of my own fear and become more willing to step forward in the future.", "greetingName": "Kent"}, {"name": "SHARON LEE YEE TENG", "age": 23, "country": "Malaysia", "phone": "60193966668", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "All 3 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Helping with adoption activities, Wherever help is needed", "remark": "I would love to participate in this volunteer activity because I was inspired by Joey Leong and her dedication to helping animals in need. As someone who has always loved dogs, I strongly believe that every life deserves care, compassion, and a chance to be helped.  I want to do my part in supporting any living being that needs assistance. To me, whether it is a person or an animal, every life is valuable. As long as I have the ability and resources to help, I will always do my best to lend a helping hand and make a positive difference.", "greetingName": "Sharon Lee"}, {"name": "Jerais Cheong", "age": 44, "country": "Malaysia", "phone": "60182132307", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "2 sessions", "joinAs": "Both \u2661", "experience": "Yes", "helpWith": "Wherever help is needed", "remark": " I have a genuine love for dogs and strongly believe that every dog deserves a safe, caring and loving home. I would be happy to contribute my time, support and resources to help shelter dogs and assist with their needs.  I hope to be part of a meaningful community that raises awareness, provides better care for dogs, and gives rescued animals a second chance at a happy life", "greetingName": "Jerais Cheong"}, {"name": "Xandra Chin", "age": 25, "country": "Malaysia", "phone": "60162470552", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "All 3 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Wherever help is needed", "remark": "I have a Pom myself, so seeing all the stories happened this year just hurts me, and I would love to give out some help back to the community whenever needed, so I see this as the best opportunity. ", "greetingName": "Xandra Chin"}, {"name": "Ong Yee Ling", "age": 31, "country": "Malaysia", "phone": "60163949500", "sessions": ["S1", "S2"], "invalid": false, "pref": "2 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Helping with adoption activities, Wherever help is needed", "remark": "Get inspiration by joey and also need contribute some help ", "greetingName": "Ong Yee Ling"}, {"name": "Teh Chee Wei", "age": 37, "country": "Malaysia", "phone": "60125440703", "sessions": ["S1", "S2"], "invalid": false, "pref": "2 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Wherever help is needed", "remark": "Always wanted to give a small hand to help, can\u2019t adopt because condo not allow. \u963f\u798f\u5f88\u53ef\u7231\u3002", "greetingName": "Teh Chee Wei"}, {"name": "KUEH PANG LANG", "age": 22, "country": "Malaysia", "phone": "60137959112", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "1 session", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Helping with adoption activities, Wherever help is needed", "remark": "I wanna do something meaningful instead of just doom-scrolling on my phone the whole day \ud83e\udd79 And I absolutely love doggies, so it would genuinely be my pleasure to spend the day with them ^3^ \ud83d\udc36\ud83d\udc95", "greetingName": "Kueh Pang Lang"}, {"name": "Kueh Pang Teng", "age": 22, "country": "Malaysia", "phone": "60137159113", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "All 3 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "Yes", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Helping with adoption activities, Wherever help is needed", "remark": "I\u2019ve volunteered at HOPE once before and I wanna do something meaningful since I\u2019m free :))", "greetingName": "Kueh Pang Teng"}, {"name": "Chong Khai Shen", "age": 30, "country": "Malaysia", "phone": "60132272319", "sessions": ["S1", "S2"], "invalid": false, "pref": "All 3 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Helping with adoption activities, Wherever help is needed", "remark": "I'm a dog feeder myself, and I will bring along my friend to help", "greetingName": "Chong Khai Shen"}, {"name": "Kong Chiun Nien", "age": 35, "country": "Malaysia", "phone": "60143320258", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "All 3 sessions", "joinAs": "Both \u2661", "experience": "No", "helpWith": "Wherever help is needed", "remark": "Yes", "greetingName": "Kong Chiun Nien"}, {"name": "Ong Yee Yen (Joey)", "age": 32, "country": "Malaysia", "phone": "60189227867", "sessions": ["S3"], "invalid": false, "pref": "1 session", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "Yes", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals, Helping with adoption activities, Wherever help is needed", "remark": "I have adopted one stray cat, I understand the demanding to help out stray cats/ dogs are way too high. This is a good opportunity for me to support, unfortunately I'm working half day on SUN, hope I could be selected to join for 3rd session. And I wanted to say thank you on behalf of shelters' animals and workers, thank you so much for your kindness for organizing this volunteering event 2.0! (And I really like Joey Leong so much \ud83d\ude48\ud83d\udc9d\ud83d\udc9d)", "greetingName": "Joey"}, {"name": "Gwen Then", "age": 29, "country": "Malaysia", "phone": "601110511540", "sessions": ["S3"], "invalid": false, "pref": "1 session", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Wherever help is needed", "remark": "I want to spread my love and positivities to the dogs \ud83e\udd79", "greetingName": "Gwen Then"}, {"name": "Lim Ying Ping (JLSC)", "age": 31, "country": "Malaysia", "phone": "60124545330", "sessions": ["S2", "S3"], "invalid": false, "pref": "2 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Wherever help is needed", "remark": "Want to know more about this charity ", "greetingName": "Lim Ying Ping"}, {"name": "Cheong Hoi Yee", "age": 32, "country": "Unknown", "phone": null, "sessions": ["S1"], "invalid": true, "pref": "1 session", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Wherever help is needed", "remark": "Just wanted to offer a helping hand ", "greetingName": "Cheong Hoi Yee"}, {"name": "Lee Chong Yuan(Ivan)", "age": 39, "country": "Malaysia", "phone": "60123415609", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "All 3 sessions", "joinAs": "Both \u2661", "experience": "No", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Helping with adoption activities, Wherever help is needed", "remark": "I had a dog, but she left last year. I wish to help whatever I can for them.", "greetingName": "Ivan"}, {"name": "Christie", "age": 29, "country": "Malaysia", "phone": "60167570744", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "All 3 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Wherever help is needed", "remark": "My cat and dog both just passed away. I\u2019d like to continue to leave their legacy which is spread love and care for other fur babies \ud83d\udc9b", "greetingName": "Christie"}, {"name": "Corinne Tee", "age": 26, "country": "Malaysia", "phone": "60169866505", "sessions": ["S2", "S3"], "invalid": false, "pref": "2 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "Yes", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Helping with adoption activities, Wherever help is needed", "remark": "I love animals and I also own a Corgi myself, so I hope to help other helpless animals too. Besides, I used to organize animal shelter activities when I was a Leo Club member so I believe my past experience will be helpful.", "greetingName": "Corinne Tee"}, {"name": "WONG YEE SENG", "age": 34, "country": "Malaysia", "phone": "60179176389", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "All 3 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Wherever help is needed", "remark": "To spend time with animals ", "greetingName": "Wong Yee Seng"}, {"name": "Phoon Hong Jun", "age": 32, "country": "Malaysia", "phone": "60173062546", "sessions": ["S1", "S2"], "invalid": false, "pref": "2 sessions", "joinAs": "Both \u2661", "experience": "No", "helpWith": "Wherever help is needed", "remark": "Helping those baby to find a new homes and help up clean up their homes", "greetingName": "Phoon Hong Jun"}, {"name": "Elaine Tan", "age": 34, "country": "Malaysia", "phone": "601112329717", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "All 3 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "Yes", "helpWith": "Wherever help is needed", "remark": "Been a long while haven been joining any to help, feel like i can do it this time", "greetingName": "Elaine Tan"}, {"name": "Christie Cheang Kar Yan", "age": 28, "country": "Malaysia", "phone": "60165295603", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "All 3 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Wherever help is needed", "remark": "I may not have volunteered at an animal shelter before, but I do have experience with dogs. I can bathe, feed, and clean their shelters. I would love to join and lend a helping hand, while doing something meaningful and worth remembering, especially since 19 September is my birthday. ", "greetingName": "Christie Cheang"}, {"name": "Henry Han Jia Ting", "age": 23, "country": "Malaysia", "phone": "60172365503", "sessions": ["S1", "S2"], "invalid": false, "pref": "2 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Wherever help is needed", "remark": "I believe animals, just like humans, are precious lives that deserve to be seen, heard, loved, and cared for. Even though they cannot speak for themselves, they have their own feelings, stories, and souls. To me, every animal has its own place and meaning in this world, and they deserve kindness and a second chance.  I hope I can offer my time and effort to make their lives a little better. I know that what I can do with my own hands may seem small, but I believe that even a small act of kindness can make a difference. When people who truly care come together with one heart, our efforts can become something much greater.  I would love to be part of Tails Worth Telling, to spend time with these animals, understand their stories, lend a helping hand, and hopefully give them the love and care they deserve.", "greetingName": "Henry Han"}, {"name": "Jan Ng", "age": 30, "country": "Malaysia", "phone": "601127782891", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "1 session", "joinAs": "Both \u2661", "experience": "Yes", "helpWith": "Helping with adoption activities, Wherever help is needed", "remark": "I have 3 dogs at home currently. Dogs give me emotional satisfaction. Seeing a scared dog slowly become more comfortable with people can be surprisingly rewarding.", "greetingName": "Jan Ng"}, {"name": "Alex Wong", "age": 36, "country": "Malaysia", "phone": "60192521235", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "1 session", "joinAs": "Both \u2661", "experience": "No", "helpWith": "Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Helping with adoption activities, Wherever help is needed", "remark": "I genuinely love dogs, spending time with them can simply make me happy and give me a sense of comfort.", "greetingName": "Alex Wong"}, {"name": "Loo Xiao Wen", "age": 25, "country": "Malaysia", "phone": "60162280262", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "All 3 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "Yes", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Helping with adoption activities, Wherever help is needed", "remark": "I have always had an interest in animals and animal welfare. I have previously volunteered at Pets Haven (under Aunty Aileen) and PULIHARA (turtle conservation), participated in the KeeperKu programme at Zoo Negara, and interned with PERHILITAN, where I was exposed to wildlife research and veterinary work. These experiences have allowed me to learn more about animals, but they have also made me realise that there is always more to learn and more ways to contribute. I would love to take this opportunity to gain more hands-on experience while helping out at the shelter. Besides, with the current issues related to animal cruelty especially towards the strays, it made me realised even more that I need to do something for them, wherever I\u2019m capable of, animals should be treated better and equally. With that I believe that even the smallest effort can make a meaningful difference to those who need it most.", "greetingName": "Loo Xiao Wen"}, {"name": "Evon Yip", "age": 39, "country": "Malaysia", "phone": "60123022110", "sessions": ["S2", "S3"], "invalid": false, "pref": "2 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals, Helping with adoption activities, Wherever help is needed", "remark": "It resonates so much with my calling, I\u2019ve adopted a Pom who is now suffering from MUE, while Pom (Minnie) is still surviving strong but I\u2019ve always wanted to share the story that adoption is the way to at least minimize breeders expansion. All those are equal and including the ones who are strays. Adopt, don\u2019t shop. So many strays or dogs (even pedigree breed) were given up everyday, longing for a forever home. None of this silent voices deserves cruelty. Maybe this is a starting point that I can finally action upon, sharing love and empathy to those furkids in need", "greetingName": "Evon Yip"}, {"name": "Ng Ze Pin", "age": 23, "country": "Malaysia", "phone": "60122483009", "sessions": ["S1"], "invalid": false, "pref": "1 session", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Wherever help is needed", "remark": "I think that it\u2019s a wholesome initiative to support, as I would love to see more local influencers to conduct initiatives like this as the impact could be scaled through media! On top of that, I\u2019ve always loved dogs and I hope that I can contribute a little to help stray dogs in Malaysia.", "greetingName": "Ng Ze Pin"}, {"name": "Kang Yi Yao", "age": 23, "country": "Malaysia", "phone": "60108626745", "sessions": ["S1"], "invalid": false, "pref": "1 session", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Helping with adoption activities, Wherever help is needed", "remark": "I love dogs and really hope to help stray dogs the way I can. ", "greetingName": "Kang Yi Yao"}, {"name": "Ong Yee Swen", "age": 27, "country": "Malaysia", "phone": "60126232085", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "2 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Bathing the animals, Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Helping with adoption activities", "remark": "To see the living conditions of the sheltered animals and to contribute more than just donations.", "greetingName": "Ong Yee Swen"}, {"name": "Yeoh Jo-Ey", "age": 28, "country": "Malaysia", "phone": "60163634185", "sessions": ["S2"], "invalid": false, "pref": "1 session", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "Yes", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals, Wherever help is needed", "remark": "I\u2019d love to be involved in something meaningful where even small efforts can help give animals the care, love, and second chances they deserve", "greetingName": "Yeoh Jo-Ey"}, {"name": "Tay Wei Han", "age": 26, "country": "Malaysia", "phone": "601116240311", "sessions": ["S2"], "invalid": false, "pref": "1 session", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "Yes", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Helping with adoption activities, Wherever help is needed", "remark": "I\u2019d love to be involved in something meaningful where even small efforts can help give animals the care, love, and second chances they deserve", "greetingName": "Tay Wei Han"}, {"name": "ONG CHEN FEI (JLSC)", "age": 42, "country": "Malaysia", "phone": "60126724075", "sessions": ["S3"], "invalid": false, "pref": "1 session", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "Yes", "helpWith": "Wherever help is needed", "remark": "Life is short\u2026 doing what we can to help or improve the society n make good memories together ", "greetingName": "Ong Chen Fei"}, {"name": "Lee Shuang Tong", "age": 23, "country": "Malaysia", "phone": "60184000375", "sessions": ["S1", "S2"], "invalid": false, "pref": "1 session", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "Yes", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals", "remark": "Ive always want to do this for the longest time and I just wanna spend time with them, talking to them is just the cutest thing on earth! I have a dog named toffee, I never knew i could be this patient and caring until I met her. She taught me so much love and patience, and I think that\u2019s exactly how we should treat and pay attention to animals, especially to the strays. And yuppp, I just love spending time with them! (PS: I\u2019ll also bring over my boyfriend if im selected and if there\u2019s still spot left! *cause he\u2019ll be fetching me anyway*)", "greetingName": "Lee Shuang Tong"}, {"name": "EWE YEE VONNE", "age": 32, "country": "Malaysia", "phone": "60195138900", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "1 session", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "Yes", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals", "remark": "I would like to volunteer and contribute to animal shelters in any way i can! I have volunteered in BSBCC for sunbears recently in august and would like to try animal shelters in klang valley! ", "greetingName": "Ewe Yee Vonne"}, {"name": "Alson Tewmingkuan", "age": 25, "country": "Malaysia", "phone": "60123202822", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "All 3 sessions", "joinAs": "Both \u2661", "experience": "No", "helpWith": "Bathing the animals, Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Helping with adoption activities, Wherever help is needed", "remark": "I\u2019ve always wanted to get involved in volunteer work, especially activities involving dogs. I\u2019d love the opportunity to help out, spend time with the dogs, and contribute in any way I can.", "greetingName": "Alson"}, {"name": "Lacey Chong Mei Ting", "age": 25, "country": "Malaysia", "phone": "601116405617", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "All 3 sessions", "joinAs": "Both \u2661", "experience": "No", "helpWith": "Bathing the animals, Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Helping with adoption activities, Wherever help is needed", "remark": "I\u2019ve always wanted to take part in more meaningful activities, and seeing Ah Hock\u2019s adoption video really touched my heart \ud83e\udd7a I\u2019d be so happy to have the opportunity to help the dogs and contribute in any way I can. \ud83d\udc36\u2764\ufe0f", "greetingName": "Lacey"}, {"name": "Lee Pearl-Lyn", "age": 32, "country": "Malaysia", "phone": "60176904491", "sessions": ["S3"], "invalid": false, "pref": "1 session", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Helping with adoption activities, Wherever help is needed", "remark": "I have always had a huge heart for animals, especially dogs, and I truly believe they deserve nothing but love, kindness, and a safe place to call home. It breaks my heart knowing that there are so many innocent and precious dogs out there experiencing abuse, neglect, and hurt.  Although I may not be in a position to adopt, I would still love to make a difference in whatever way I can. I want to give back, do something meaningful, and be a helping hand to these dogs who need love and care. They are truly man\u2019s best friend, and I believe every dog deserves to feel loved, protected, and valued.  Joining this initiative would be my way of giving them the love and support they deserve, even in the smallest ways. ", "greetingName": "Lee Pearl-Lyn"}, {"name": "Lee Pui ling", "age": 40, "country": "Malaysia", "phone": "60124261848", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "All 3 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Wherever help is needed", "remark": "I\u2019m a dog owner and I really love animals. I would like to volunteer at the shelter to help with cleaning, feeding, and taking care of the pets.  I also hope to spend time with them, understand their needs and condition, and see what I can do to make their lives better. I would be happy to share my time, care, and love with animals who need it.", "greetingName": "Lee Pui Ling"}, {"name": "Wong Fung", "age": 24, "country": "Malaysia", "phone": "60193566200", "sessions": ["S1", "S2", "S3"], "invalid": false, "pref": "All 3 sessions", "joinAs": "As a volunteer \u2014 helping out at the shelters", "experience": "No", "helpWith": "Cleaning the shelter, Bathing the animals, Walking the dogs, Feeding & caring for the animals, Carrying & distributing supplies, Helping with adoption activities, Wherever help is needed", "remark": "Interested in learning", "greetingName": "Wong Fung"}];
+let PEOPLE = [];
+
+function mapVolunteerRow(row){
+  return {
+    name: row.name,
+    age: row.age,
+    country: row.country,
+    phone: row.phone,
+    sessions: row.sessions_available || [],
+    invalid: row.invalid,
+    pref: row.pref,
+    joinAs: row.join_as,
+    experience: row.experience,
+    helpWith: row.help_with,
+    remark: row.remark,
+    greetingName: row.greeting_name,
+    attendanceStatus: row.attendance_status || 'Not yet responded',
+    plusOneBringing: !!row.plus_one_bringing,
+    plusOneName: row.plus_one_name || '',
+    plusOnePhone: row.plus_one_phone || '',
+    emergencyContactName: row.emergency_contact_name || '',
+    emergencyContactRelationship: row.emergency_contact_relationship || '',
+    emergencyContactPhone: row.emergency_contact_phone || '',
+  };
+}
+
+async function loadPeople(){
+  try{
+    const { data, error } = await sb.from('volunteers').select('*');
+    if(error) throw error;
+    PEOPLE = data.map(mapVolunteerRow);
+  }catch(e){
+    console.error('Failed to load volunteers:', e);
+  }
+}
 const SESSION_LABELS = {S1:'Morning', S2:'Afternoon', S3:'Late Afternoon'};
 
 /* Display-only name formatting — internal keys (PEOPLE[].name, assignments) stay untouched */
@@ -541,7 +711,7 @@ function prefCount(pref){
 }
 function esc(s){ return (s||'').toString().replace(/'/g, "\\'"); }
 
-const derived = (function(){
+function computeDerived(){
   const morningOnly=[], afternoonOnly=[], lateOnly=[], throughout=[];
   const multiCombos = {};
   const s1=[], s2=[], s3=[];
@@ -573,11 +743,12 @@ const derived = (function(){
   });
 
   return {morningOnly, afternoonOnly, lateOnly, throughout, multiCombos, s1, s2, s3,
-    ageAvg: ageN? Math.round((ageSum/ageN)*10)/10:0, ageMin, ageMax,
+    ageAvg: ageN? Math.round((ageSum/ageN)*10)/10:0, ageMin: ageN?ageMin:0, ageMax: ageN?ageMax:0,
     joinAs, sessionsJoin, experience, validCount, invalidCount, invalidNames};
-})();
+}
 
-const invalidSet = new Set(derived.invalidNames);
+let derived = computeDerived();
+let invalidSet = new Set(derived.invalidNames);
 
 /* ---------- storage ---------- */
 /* ---------- storage (Supabase, shared live) ---------- */
@@ -891,11 +1062,7 @@ function renderSessionBoxes(){
     const cap = capOf(s);
     pill.textContent = cap !== null ? `${names.length} / ${cap}` : `${names.length}`;
     pill.classList.toggle('full', cap !== null && names.length >= cap);
-    list.innerHTML = names.length ? names.map(n => {
-      const person = PEOPLE.find(p => p.name === n);
-      const expTag = person && person.experience === 'Yes' ? '<span class="exp-tag">✓ experienced</span>' : '';
-      return `<li><span class="assigned-name">${properName(n)}${expTag}</span><button onclick="unassign('${esc(n)}','${s}')">✕</button></li>`;
-    }).join('') : '<li class="empty">No one assigned yet</li>';
+    list.innerHTML = names.length ? names.map(n => `<li><span>${properName(n)}</span><button onclick="unassign('${esc(n)}','${s}')">✕</button></li>`).join('') : '<li class="empty">No one assigned yet</li>';
     const capInput = document.querySelector(`.capInput[data-s="${s}"]`);
     if(document.activeElement !== capInput){
       capInput.value = state.caps[s]===null||state.caps[s]===undefined ? '' : state.caps[s];
@@ -937,7 +1104,6 @@ function renderPool(){
     const overPref = assignedTo.length >= pc;
     const badges = [
       `<span class="badge avail">${p.sessions.join('/')} avail.</span>`,
-      p.experience === 'Yes' ? `<span class="badge exp">✓ prior experience</span>` : '',
       p.invalid ? `<span class="badge invalid">⚠ invalid number</span>` : '',
       assignedTo.length ? `<span class="badge assigned">assigned: ${assignedTo.join(', ')}</span>` : '',
       overPref && assignedTo.length ? `<span class="badge overpref">at/over pref (${p.pref})</span>` : ''
@@ -1119,9 +1285,12 @@ function buildMessageFor(p){
 }
 
 function getConfirmationRoster(){
-  // Everyone currently assigned to at least one session (invalid-number people can never be assigned, so no need to filter separately)
+  // Everyone currently assigned to at least one session, PLUS anyone already marked
+  // Confirmed/Declined (so they don't disappear from crew lists once unassigned).
+  // This single roster is shared by the Confirmation tab and Manage Volunteers tab
+  // so their crew splits always tally with each other.
   return PEOPLE
-    .filter(p => getAssignedSessions(p.name).length > 0)
+    .filter(p => getAssignedSessions(p.name).length > 0 || p.attendanceStatus === 'Confirmed' || p.attendanceStatus === 'Declined')
     .slice()
     .sort((a,b) => a.name.localeCompare(b.name));
 }
@@ -1205,8 +1374,339 @@ function undoConfirmSent(phone){
   renderConfirmationTab();
 }
 
+/* ---------- manage volunteers: attendance & plus-1 ---------- */
+function slugId(name){
+  return name.replace(/[^a-zA-Z0-9]/g, '_');
+}
+
+let activeManageCrew = 'A';
+
+function attendanceClass(status){
+  if(status === 'Confirmed') return 'confirmed';
+  if(status === 'Declined') return 'declined';
+  return 'pending';
+}
+
+function switchManageCrew(k){
+  activeManageCrew = k;
+  renderManageTab();
+}
+
+function renderManageTab(){
+  // Same roster + same split as the Confirmation tab, so crew assignments always tally
+  const roster = getConfirmationRoster();
+  const crews = splitIntoCrews(roster);
+
+  const tabbar = document.getElementById('manageCrewTabbar');
+  tabbar.innerHTML = CREW_KEYS.map(k => {
+    return `<button class="crew-tabbtn ${k===activeManageCrew?'active':''}" onclick="switchManageCrew('${k}')">${CREW_LABELS[k]} (${crews[k].length})</button>`;
+  }).join('');
+
+  const search = (document.getElementById('manageSearch').value || '').trim().toLowerCase();
+  const searchDigits = search.replace(/\D/g, '');
+  const filter = document.getElementById('manageFilterSel').value;
+
+  const crewAll = crews[activeManageCrew];
+  let list = crewAll.filter(p =>
+    p.name.toLowerCase().includes(search) ||
+    (searchDigits.length >= 2 && (p.phone || '').includes(searchDigits))
+  );
+  if(filter === 'plusone'){
+    list = list.filter(p => p.plusOneBringing);
+  } else if(filter !== 'all'){
+    list = list.filter(p => p.attendanceStatus === filter);
+  }
+
+  const confirmedCount = crewAll.filter(p => p.attendanceStatus === 'Confirmed').length;
+  const declinedCount = crewAll.filter(p => p.attendanceStatus === 'Declined').length;
+  const pendingCount = crewAll.filter(p => p.attendanceStatus !== 'Confirmed' && p.attendanceStatus !== 'Declined').length;
+  const plusOneCount = crewAll.filter(p => p.plusOneBringing).length;
+
+  document.getElementById('manageSummary').innerHTML = `
+    <div class="chip"><b>${crewAll.length}</b> in ${CREW_LABELS[activeManageCrew]}</div>
+    <div class="chip"><b>${confirmedCount}</b> confirmed</div>
+    <div class="chip"><b>${declinedCount}</b> declined</div>
+    <div class="chip"><b>${pendingCount}</b> not yet responded</div>
+    <div class="chip"><b>${plusOneCount}</b> bringing a plus-1</div>
+  `;
+
+  document.getElementById('manageList').innerHTML = list.map(p => {
+    const id = slugId(p.name);
+    const assigned = getAssignedSessions(p.name).map(s => SESSION_LABELS[s]).join(' + ');
+    return `<div class="manage-item">
+      <div class="manage-row1">
+        <div>
+          <div class="manage-name">${properName(p.name)}</div>
+          <div class="manage-meta">${assigned || 'No session'} · ${p.phone || 'no number'}</div>
+        </div>
+        <select class="attendance-sel ${attendanceClass(p.attendanceStatus)}" onchange="updateAttendance('${esc(p.name)}', this.value)">
+          <option value="Not yet responded" ${p.attendanceStatus==='Not yet responded'?'selected':''}>Not yet responded</option>
+          <option value="Confirmed" ${p.attendanceStatus==='Confirmed'?'selected':''}>Confirmed</option>
+          <option value="Declined" ${p.attendanceStatus==='Declined'?'selected':''}>Declined</option>
+        </select>
+      </div>
+      <div class="plusone-row">
+        <label><input type="checkbox" ${p.plusOneBringing?'checked':''} onchange="togglePlusOne('${esc(p.name)}', this.checked)"> Bringing a +1</label>
+        ${p.plusOneBringing ? `
+          <div class="plusone-fields">
+            <input type="text" id="plusone-name-${id}" placeholder="Plus-1 name" value="${(p.plusOneName||'').replace(/"/g,'&quot;')}">
+            <input type="text" id="plusone-phone-${id}" placeholder="Plus-1 phone" value="${(p.plusOnePhone||'').replace(/"/g,'&quot;')}">
+          </div>
+          <button class="plusone-save-btn" onclick="savePlusOneDetails('${esc(p.name)}')">Save</button>
+        ` : ''}
+      </div>
+    </div>`;
+  }).join('') || '<p class="empty">No one matches this filter.</p>';
+}
+
+async function updateAttendance(name, status){
+  const p = PEOPLE.find(x => x.name === name);
+  if(!p) return;
+
+  if(status === 'Declined'){
+    const assignedSessions = getAssignedSessions(name);
+    if(assignedSessions.length){
+      const sessionLabel = assignedSessions.map(s => SESSION_LABELS[s]).join(' + ');
+      const ok = await appConfirm(`Mark ${properName(name)} as Declined and remove them from ${sessionLabel}? This frees up their spot for someone else.`, 'Confirm decline');
+      if(!ok) return;
+      assignedSessions.forEach(s => {
+        state.assignments[s] = state.assignments[s].filter(n => n !== name);
+      });
+      await saveState();
+    }
+  }
+
+  p.attendanceStatus = status;
+  try{
+    await sb.from('volunteers').update({ attendance_status: status }).eq('name', name);
+  }catch(e){ console.error(e); }
+  renderAll();
+}
+
+async function togglePlusOne(name, bringing){
+  const p = PEOPLE.find(x => x.name === name);
+  if(!p) return;
+  p.plusOneBringing = bringing;
+  try{
+    await sb.from('volunteers').update({ plus_one_bringing: bringing }).eq('name', name);
+  }catch(e){ console.error(e); }
+  renderManageTab();
+  renderHeadcountTab();
+}
+
+async function savePlusOneDetails(name){
+  const id = slugId(name);
+  const nameVal = document.getElementById('plusone-name-'+id).value.trim();
+  const phoneVal = document.getElementById('plusone-phone-'+id).value.replace(/\D/g,'');
+  const p = PEOPLE.find(x => x.name === name);
+  if(!p) return;
+  p.plusOneName = nameVal;
+  p.plusOnePhone = phoneVal;
+  try{
+    await sb.from('volunteers').update({ plus_one_name: nameVal, plus_one_phone: phoneVal }).eq('name', name);
+    renderHeadcountTab();
+    await appAlert(`Saved plus-1 details for ${properName(name)}.`, 'Saved');
+  }catch(e){
+    console.error(e);
+    await appAlert('Could not save — please try again.', 'Save failed');
+  }
+}
+
+document.getElementById('manageSearch').addEventListener('input', renderManageTab);
+document.getElementById('manageFilterSel').addEventListener('change', renderManageTab);
+
+/* ---------- manage volunteers: emergency contact parser ---------- */
+function normalizeForMatch(str){
+  return (str || '').toLowerCase().replace(/\(.*?\)/g, '').replace(/[^a-z]/g, '').trim();
+}
+
+function findVolunteerMatch(rawName){
+  const norm = normalizeForMatch(rawName);
+  if(!norm) return null;
+  let match = PEOPLE.find(p => normalizeForMatch(p.greetingName) === norm || normalizeForMatch(p.name) === norm);
+  if(match) return match;
+  match = PEOPLE.find(p => normalizeForMatch(p.greetingName).includes(norm) || norm.includes(normalizeForMatch(p.greetingName)));
+  return match || null;
+}
+
+function parseEmergencyBlock(block){
+  const lines = block.split('\n').map(l => l.trim()).filter(Boolean);
+  let volunteerName = '', ecName = '', ecRelationship = '', ecPhone = '';
+  lines.forEach(line => {
+    let m;
+    if(m = line.match(/^Volunteer name\s*:\s*(.+)$/i)) volunteerName = m[1].trim();
+    else if(m = line.match(/^\*?\s*Name\s*:\s*(.+)$/i)) ecName = m[1].trim();
+    else if(m = line.match(/^\*?\s*Relationship\s*:\s*(.+)$/i)) ecRelationship = m[1].trim();
+    else if(m = line.match(/^\*?\s*Contact\s*Number\s*:\s*(.+)$/i)) ecPhone = m[1].replace(/[^0-9]/g, '');
+  });
+  return { volunteerName, ecName, ecRelationship, ecPhone };
+}
+
+let ecPreview = [];
+
+function parseEmergencyContacts(){
+  const raw = document.getElementById('ecPasteBox').value;
+  if(!raw.trim()){ return; }
+  const blocks = raw.split(/(?=Volunteer name\s*:)/i).map(b => b.trim()).filter(Boolean);
+  ecPreview = blocks.map(block => {
+    const parsed = parseEmergencyBlock(block);
+    const match = findVolunteerMatch(parsed.volunteerName);
+    return { ...parsed, matchedName: match ? match.name : '', saved: false };
+  });
+  renderEcPreview();
+}
+
+function renderEcPreview(){
+  const wrap = document.getElementById('ecPreviewWrap');
+  if(!ecPreview.length){ wrap.innerHTML = ''; return; }
+
+  const optionsHtml = PEOPLE.slice().sort((a,b)=>a.name.localeCompare(b.name))
+    .map(p => `<option value="${esc(p.name)}">${properName(p.name)}</option>`).join('');
+
+  const itemsHtml = ecPreview.map((row, i) => {
+    const hasMatch = !!row.matchedName;
+    return `<div class="ec-preview-item ${hasMatch?'':'no-match'}">
+      <div class="ec-preview-head">
+        <b>Parsed as: ${row.volunteerName || '(no name found)'}</b>
+        <select class="ec-match-sel" onchange="ecPreview[${i}].matchedName=this.value; renderEcPreview();">
+          <option value="">— no match, select manually —</option>
+          ${optionsHtml}
+        </select>
+      </div>
+      <div class="ec-preview-grid">
+        <div><b>Emergency Contact Name</b>${row.ecName || '—'}</div>
+        <div><b>Relationship</b>${row.ecRelationship || '—'}</div>
+        <div><b>Contact Number</b>${row.ecPhone || '—'}</div>
+      </div>
+      <button class="ec-save-btn ${row.saved?'saved':''}" onclick="saveEcRow(${i})">${row.saved ? '✓ Saved' : 'Save'}</button>
+    </div>`;
+  }).join('');
+
+  // pre-select the matched dropdown value after render
+  wrap.innerHTML = `
+    <div class="ec-save-all-row"><button class="ec-save-all-btn" onclick="saveAllEcRows()">Save all matched</button></div>
+    ${itemsHtml}
+  `;
+  ecPreview.forEach((row, i) => {
+    const sels = wrap.querySelectorAll('.ec-match-sel');
+    if(sels[i] && row.matchedName) sels[i].value = row.matchedName;
+  });
+}
+
+async function saveEcRow(i){
+  const row = ecPreview[i];
+  if(!row.matchedName){
+    await appAlert('Please select which volunteer this belongs to first.', 'No match selected');
+    return;
+  }
+  try{
+    await sb.from('volunteers').update({
+      emergency_contact_name: row.ecName,
+      emergency_contact_relationship: row.ecRelationship,
+      emergency_contact_phone: row.ecPhone
+    }).eq('name', row.matchedName);
+    const p = PEOPLE.find(x => x.name === row.matchedName);
+    if(p){
+      p.emergencyContactName = row.ecName;
+      p.emergencyContactRelationship = row.ecRelationship;
+      p.emergencyContactPhone = row.ecPhone;
+    }
+    row.saved = true;
+    renderEcPreview();
+  }catch(e){
+    console.error(e);
+    await appAlert('Could not save this entry — please try again.', 'Save failed');
+  }
+}
+
+async function saveAllEcRows(){
+  const matched = ecPreview.filter(r => r.matchedName && !r.saved);
+  if(!matched.length){
+    await appAlert('Nothing new to save — either everything is already saved, or no rows have a matched volunteer yet.', 'Nothing to save');
+    return;
+  }
+  const ok = await appConfirm(`Save emergency contact info for ${matched.length} matched ${matched.length===1?'entry':'entries'}?`, 'Confirm save');
+  if(!ok) return;
+  for(const row of matched){
+    await saveEcRow(ecPreview.indexOf(row));
+  }
+  await appAlert(`Saved ${matched.length} ${matched.length===1?'entry':'entries'}.`, 'Done');
+}
+
+/* ---------- headcount tab ---------- */
+const HEADCOUNT_GROUPS = [
+  { label: 'Morning', keyLabel: 'Session 1', sessions: ['S1'] },
+  { label: 'Afternoon', keyLabel: 'Session 2 + 3 (combined)', sessions: ['S2', 'S3'] },
+];
+
+function renderHeadcountTab(){
+  const wrap = document.getElementById('headcountWrap');
+  wrap.innerHTML = HEADCOUNT_GROUPS.map(group => {
+    const confirmedPeople = PEOPLE.filter(p =>
+      group.sessions.some(s => getAssignedSessions(p.name).includes(s)) && p.attendanceStatus === 'Confirmed'
+    );
+    const volunteerCount = confirmedPeople.length;
+    const plusOneCount = confirmedPeople.filter(p => p.plusOneBringing).length;
+    const total = volunteerCount + plusOneCount;
+
+    // Combine caps across the group's sessions (sum whichever ones are actually set)
+    const setCaps = group.sessions.map(s => state.caps[s]).filter(c => c !== null && c !== undefined);
+    const cap = setCaps.length ? setCaps.reduce((a,b) => a+b, 0) : null;
+    const isOver = cap !== null && total > cap;
+
+    const capNote = (cap === null)
+      ? ''
+      : `<div class="headcount-cap-note ${isOver?'over':'ok'}">${isOver ? `⚠ Exceeds cap of ${cap}` : `Within cap of ${cap}`}</div>`;
+
+    let listHtml = '';
+    confirmedPeople.forEach(p => {
+      const expTag = p.experience === 'Yes' ? '<span class="headcount-exp-tag">✓ prior experience</span>' : '';
+      listHtml += `
+        <li>
+          <div class="headcount-person-main">
+            <span class="headcount-person-name">${properName(p.name)}</span>
+            <span class="headcount-person-meta">Age ${p.age ?? '—'} · ${p.country || '—'} · ${p.phone || 'no number'}</span>
+          </div>
+          ${expTag}
+        </li>
+      `;
+      if(p.plusOneBringing){
+        listHtml += `
+          <li class="headcount-plusone-li">
+            <div class="headcount-person-main">
+              <span class="headcount-person-name">${p.plusOneName ? properName(p.plusOneName) : '(name not entered)'}</span>
+              <span class="headcount-person-meta">${p.plusOnePhone || 'no number'}</span>
+            </div>
+            <span class="headcount-plusone-tag">+1 of ${properName(p.name)}</span>
+          </li>
+        `;
+      }
+    });
+    if(!confirmedPeople.length){
+      listHtml = '<li class="empty" style="background:none;">No one confirmed for this session yet.</li>';
+    }
+
+    return `<div class="headcount-box">
+      <div class="headcount-head">
+        <h3>${group.label} (${group.keyLabel})</h3>
+        <div class="headcount-nums">
+          <div class="headcount-total ${isOver?'over':''}">${total}</div>
+          <div class="headcount-breakdown">${volunteerCount} volunteer${volunteerCount===1?'':'s'} + ${plusOneCount} plus-1${plusOneCount===1?'':'s'}</div>
+          ${capNote}
+        </div>
+      </div>
+      <details class="headcount-details">
+        <summary>View names (${total})</summary>
+        <ul class="headcount-namelist">${listHtml}</ul>
+      </details>
+    </div>`;
+  }).join('');
+}
+
 /* ---------- master render ---------- */
 function renderAll(){
+  derived = computeDerived();
+  invalidSet = new Set(derived.invalidNames);
   renderStatGrid();
   renderSessionAvailLists();
   renderOnlyAndThroughLists();
@@ -1217,6 +1717,8 @@ function renderAll(){
   renderContactsTab();
   renderExportGroups();
   renderConfirmationTab();
+  renderManageTab();
+  renderHeadcountTab();
 }
 
 /* ---------- export snapshot ---------- */
@@ -1271,7 +1773,7 @@ document.querySelectorAll('.capInput').forEach(inp=>{
 });
 
 (async function init(){
-  await loadState();
+  await Promise.all([loadState(), loadPeople()]);
   renderAll();
 })();
 </script>
