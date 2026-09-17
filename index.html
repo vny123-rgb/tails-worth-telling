@@ -185,6 +185,8 @@
   .badges{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px;}
   .badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px;}
   .badge.avail{background:var(--green-soft);color:var(--green);}
+  .badge.exp{background:var(--plum-soft);color:var(--plum);}
+  .badge.declined{background:var(--red-soft);color:#8A2E2E;}
   .badge.invalid{background:var(--red-soft);color:#8A2E2E;}
   .badge.assigned{background:var(--plum-soft);color:var(--plum);}
   .badge.overpref{background:var(--amber-soft);color:var(--amber);}
@@ -204,6 +206,9 @@
   .count-pill.full{background:var(--red-soft);color:#8A2E2E;}
   .assigned-list{list-style:none;margin:0;padding:0;}
   .assigned-list li{display:flex;justify-content:space-between;align-items:center;font-size:13px;padding:6px 8px;border-radius:6px;background:var(--paper);margin-bottom:5px;}
+  .assigned-list .assigned-name{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+  .exp-tag{font-size:10px;font-weight:700;padding:1px 7px;border-radius:20px;background:var(--plum-soft);color:var(--plum);white-space:nowrap;}
+  .declined-tag{font-size:10px;font-weight:700;padding:1px 7px;border-radius:20px;background:var(--red-soft);color:#8A2E2E;white-space:nowrap;}
   .assigned-list li button{border:none;background:none;color:var(--red);font-size:15px;cursor:pointer;line-height:1;padding:0 2px;}
   .assigned-list .empty{color:var(--muted);font-size:12.5px;padding:6px 2px;}
 
@@ -262,6 +267,7 @@
   }
   .confirm-item.sent{border-color:#BFE3CE;background:var(--green-soft);}
   .confirm-item.no-template{border-color:#EBC2C2;background:var(--red-soft);}
+  .confirm-item.declined-item{border-color:var(--border);background:var(--paper);opacity:0.7;}
   .confirm-info{min-width:0;flex:1;}
   .confirm-name{font-weight:700;font-size:14px;}
   .confirm-meta{font-size:11.5px;color:var(--muted);margin-top:1px;}
@@ -358,6 +364,7 @@
   .headcount-total{font-size:22px;font-weight:700;}
   .headcount-total.over{color:var(--red);}
   .headcount-breakdown{font-size:11.5px;color:var(--muted);}
+  .headcount-declined-note{font-size:11px;color:#8A2E2E;margin-top:2px;}
   .headcount-cap-note{font-size:11px;font-weight:700;margin-top:2px;}
   .headcount-cap-note.over{color:var(--red);}
   .headcount-cap-note.ok{color:var(--green);}
@@ -580,6 +587,13 @@
         <option value="plusone">Bringing a plus-1</option>
       </select>
     </div>
+    <div class="top-controls" style="margin-top:-10px;">
+      <select id="manageSessionFilterSel">
+        <option value="all">Any session</option>
+        <option value="Morning">Morning</option>
+        <option value="Afternoon">Afternoon</option>
+      </select>
+    </div>
     <div class="manage-summary" id="manageSummary"></div>
     <div id="manageList"></div>
 
@@ -647,6 +661,7 @@ function mapVolunteerRow(row){
     remark: row.remark,
     greetingName: row.greeting_name,
     attendanceStatus: row.attendance_status || 'Not yet responded',
+    declinedSessions: row.declined_sessions || [],
     plusOneBringing: !!row.plus_one_bringing,
     plusOneName: row.plus_one_name || '',
     plusOnePhone: row.plus_one_phone || '',
@@ -1062,7 +1077,12 @@ function renderSessionBoxes(){
     const cap = capOf(s);
     pill.textContent = cap !== null ? `${names.length} / ${cap}` : `${names.length}`;
     pill.classList.toggle('full', cap !== null && names.length >= cap);
-    list.innerHTML = names.length ? names.map(n => `<li><span>${properName(n)}</span><button onclick="unassign('${esc(n)}','${s}')">✕</button></li>`).join('') : '<li class="empty">No one assigned yet</li>';
+    list.innerHTML = names.length ? names.map(n => {
+      const person = PEOPLE.find(p => p.name === n);
+      const expTag = person && person.experience === 'Yes' ? '<span class="exp-tag">✓ experienced</span>' : '';
+      const declinedTag = person && person.attendanceStatus === 'Declined' ? '<span class="declined-tag">⛔ previously declined</span>' : '';
+      return `<li><span class="assigned-name">${properName(n)}${expTag}${declinedTag}</span><button onclick="unassign('${esc(n)}','${s}')">✕</button></li>`;
+    }).join('') : '<li class="empty">No one assigned yet</li>';
     const capInput = document.querySelector(`.capInput[data-s="${s}"]`);
     if(document.activeElement !== capInput){
       capInput.value = state.caps[s]===null||state.caps[s]===undefined ? '' : state.caps[s];
@@ -1104,6 +1124,8 @@ function renderPool(){
     const overPref = assignedTo.length >= pc;
     const badges = [
       `<span class="badge avail">${p.sessions.join('/')} avail.</span>`,
+      p.experience === 'Yes' ? `<span class="badge exp">✓ prior experience</span>` : '',
+      p.attendanceStatus === 'Declined' ? `<span class="badge declined">⛔ previously declined</span>` : '',
       p.invalid ? `<span class="badge invalid">⚠ invalid number</span>` : '',
       assignedTo.length ? `<span class="badge assigned">assigned: ${assignedTo.join(', ')}</span>` : '',
       overPref && assignedTo.length ? `<span class="badge overpref">at/over pref (${p.pref})</span>` : ''
@@ -1307,24 +1329,37 @@ function renderConfirmationTab(){
 
   const tabbar = document.getElementById('crewTabbar');
   tabbar.innerHTML = CREW_KEYS.map(k => {
-    const sentCount = crews[k].filter(p => sentStatusFor(p)).length;
-    return `<button class="crew-tabbtn ${k===activeCrew?'active':''}" onclick="switchCrew('${k}')">${CREW_LABELS[k]} (${sentCount}/${crews[k].length})</button>`;
+    const sendable = crews[k].filter(p => p.attendanceStatus !== 'Declined');
+    const sentCount = sendable.filter(p => sentStatusFor(p)).length;
+    return `<button class="crew-tabbtn ${k===activeCrew?'active':''}" onclick="switchCrew('${k}')">${CREW_LABELS[k]} (${sentCount}/${sendable.length})</button>`;
   }).join('');
 
   const panels = document.getElementById('crewPanels');
   const list = crews[activeCrew];
-  const sentCount = list.filter(p => sentStatusFor(p)).length;
+  const sendable = list.filter(p => p.attendanceStatus !== 'Declined');
+  const sentCount = sendable.filter(p => sentStatusFor(p)).length;
+  const declinedInCrew = list.length - sendable.length;
 
   const summaryHtml = `<div class="crew-summary">
     <div class="chip"><b>${list.length}</b> in ${CREW_LABELS[activeCrew]}</div>
     <div class="chip"><b>${sentCount}</b> sent</div>
-    <div class="chip"><b>${list.length - sentCount}</b> not sent yet</div>
+    <div class="chip"><b>${sendable.length - sentCount}</b> not sent yet</div>
+    ${declinedInCrew ? `<div class="chip"><b>${declinedInCrew}</b> declined</div>` : ''}
   </div>`;
 
   const itemsHtml = list.map(p => {
     const msg = buildMessageFor(p);
     const isSent = sentStatusFor(p);
     const groupTitle = COMBO_TITLES[msg.key] || msg.key || 'Unassigned';
+
+    if(p.attendanceStatus === 'Declined'){
+      return `<div class="confirm-item declined-item">
+        <div class="confirm-info">
+          <div class="confirm-name">${properName(p.name)}</div>
+          <div class="confirm-meta">Declined · ${p.phone || '—'}</div>
+        </div>
+      </div>`;
+    }
 
     if(!msg.ready){
       return `<div class="confirm-item no-template">
@@ -1417,6 +1452,14 @@ function renderManageTab(){
     list = list.filter(p => p.attendanceStatus === filter);
   }
 
+  const sessionFilter = document.getElementById('manageSessionFilterSel').value;
+  if(sessionFilter !== 'all'){
+    const group = HEADCOUNT_GROUPS.find(g => g.label === sessionFilter);
+    if(group){
+      list = list.filter(p => group.sessions.some(s => getAssignedSessions(p.name).includes(s)));
+    }
+  }
+
   const confirmedCount = crewAll.filter(p => p.attendanceStatus === 'Confirmed').length;
   const declinedCount = crewAll.filter(p => p.attendanceStatus === 'Declined').length;
   const pendingCount = crewAll.filter(p => p.attendanceStatus !== 'Confirmed' && p.attendanceStatus !== 'Declined').length;
@@ -1463,22 +1506,28 @@ async function updateAttendance(name, status){
   const p = PEOPLE.find(x => x.name === name);
   if(!p) return;
 
+  let declinedSessionsUpdate = p.declinedSessions;
+
   if(status === 'Declined'){
     const assignedSessions = getAssignedSessions(name);
     if(assignedSessions.length){
       const sessionLabel = assignedSessions.map(s => SESSION_LABELS[s]).join(' + ');
       const ok = await appConfirm(`Mark ${properName(name)} as Declined and remove them from ${sessionLabel}? This frees up their spot for someone else.`, 'Confirm decline');
       if(!ok) return;
+      declinedSessionsUpdate = assignedSessions.slice(); // remember which session(s) they're being removed from
       assignedSessions.forEach(s => {
         state.assignments[s] = state.assignments[s].filter(n => n !== name);
       });
       await saveState();
     }
+  } else {
+    declinedSessionsUpdate = []; // no longer declined, clear the historical record
   }
 
   p.attendanceStatus = status;
+  p.declinedSessions = declinedSessionsUpdate;
   try{
-    await sb.from('volunteers').update({ attendance_status: status }).eq('name', name);
+    await sb.from('volunteers').update({ attendance_status: status, declined_sessions: declinedSessionsUpdate }).eq('name', name);
   }catch(e){ console.error(e); }
   renderAll();
 }
@@ -1514,6 +1563,7 @@ async function savePlusOneDetails(name){
 
 document.getElementById('manageSearch').addEventListener('input', renderManageTab);
 document.getElementById('manageFilterSel').addEventListener('change', renderManageTab);
+document.getElementById('manageSessionFilterSel').addEventListener('change', renderManageTab);
 
 /* ---------- manage volunteers: emergency contact parser ---------- */
 function normalizeForMatch(str){
@@ -1649,6 +1699,10 @@ function renderHeadcountTab(){
     const plusOneCount = confirmedPeople.filter(p => p.plusOneBringing).length;
     const total = volunteerCount + plusOneCount;
 
+    const declinedCount = PEOPLE.filter(p =>
+      p.attendanceStatus === 'Declined' && group.sessions.some(s => (p.declinedSessions||[]).includes(s))
+    ).length;
+
     // Combine caps across the group's sessions (sum whichever ones are actually set)
     const setCaps = group.sessions.map(s => state.caps[s]).filter(c => c !== null && c !== undefined);
     const cap = setCaps.length ? setCaps.reduce((a,b) => a+b, 0) : null;
@@ -1692,6 +1746,7 @@ function renderHeadcountTab(){
         <div class="headcount-nums">
           <div class="headcount-total ${isOver?'over':''}">${total}</div>
           <div class="headcount-breakdown">${volunteerCount} volunteer${volunteerCount===1?'':'s'} + ${plusOneCount} plus-1${plusOneCount===1?'':'s'}</div>
+          <div class="headcount-declined-note">${declinedCount} declined</div>
           ${capNote}
         </div>
       </div>
