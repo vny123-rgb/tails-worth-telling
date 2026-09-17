@@ -266,9 +266,8 @@ function renderGroup(groupLabel){
 }
 
 function renderEmergencyTab(){
-  // Everyone currently in the assigned roster, regardless of session or attendance status —
-  // this tab is a safety-net lookup, not tied to who's confirmed/checked in.
-  const roster = PEOPLE.filter(p => p.sessionsAssigned.length > 0).slice().sort((a,b) => a.name.localeCompare(b.name));
+  // Only confirmed participants — matches who's actually expected to attend.
+  const roster = PEOPLE.filter(p => p.sessionsAssigned.length > 0 && p.attendanceStatus === 'Confirmed').slice().sort((a,b) => a.name.localeCompare(b.name));
 
   const search = (document.getElementById('search-Emergency').value || '').trim().toLowerCase();
   const searchDigits = search.replace(/\D/g, '');
