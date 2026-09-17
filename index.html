@@ -661,6 +661,7 @@ function mapVolunteerRow(row){
     remark: row.remark,
     greetingName: row.greeting_name,
     attendanceStatus: row.attendance_status || 'Not yet responded',
+    crew: row.crew || null,
     declinedSessions: row.declined_sessions || [],
     plusOneBringing: !!row.plus_one_bringing,
     plusOneName: row.plus_one_name || '',
@@ -1317,9 +1318,36 @@ function getConfirmationRoster(){
     .sort((a,b) => a.name.localeCompare(b.name));
 }
 
+async function saveCrewAssignment(name, crew){
+  try{
+    await sb.from('volunteers').update({ crew }).eq('name', name);
+  }catch(e){ console.error('Failed to save crew assignment for', name, e); }
+}
+
 function splitIntoCrews(roster){
+  // Anyone with a saved crew stays exactly where they were locked in.
+  // Anyone new gets slotted into whichever crew currently has the fewest people
+  // (alphabetical tiebreak), so existing people never get reshuffled by new additions.
   const crews = {A:[], B:[], C:[]};
-  roster.forEach((p, i) => { crews[CREW_KEYS[i % 3]].push(p); });
+  const unassigned = [];
+
+  roster.forEach(p => {
+    if(p.crew && crews[p.crew]){
+      crews[p.crew].push(p);
+    } else {
+      unassigned.push(p);
+    }
+  });
+
+  unassigned.forEach(p => {
+    const sizes = CREW_KEYS.map(k => ({ k, n: crews[k].length }));
+    sizes.sort((a,b) => a.n - b.n || a.k.localeCompare(b.k));
+    const chosen = sizes[0].k;
+    crews[chosen].push(p);
+    p.crew = chosen;
+    saveCrewAssignment(p.name, chosen); // fire-and-forget persist
+  });
+
   return crews;
 }
 
