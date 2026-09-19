@@ -368,6 +368,13 @@
   .headcount-cap-note{font-size:11px;font-weight:700;margin-top:2px;}
   .headcount-cap-note.over{color:var(--red);}
   .headcount-cap-note.ok{color:var(--green);}
+  .headcount-export-row{display:flex;justify-content:flex-end;margin-top:6px;}
+  .headcount-export-btn{
+    border:1px solid var(--green);color:var(--green);background:#fff;border-radius:6px;
+    padding:6px 14px;font-size:12px;font-weight:700;cursor:pointer;
+  }
+  .headcount-export-btn:hover{background:var(--green-soft);}
+  .headcount-export-btn:disabled{border-color:var(--border);color:var(--muted);cursor:not-allowed;}
   .headcount-details{margin-top:8px;}
   .headcount-details summary{
     cursor:pointer;list-style:none;font-size:12.5px;font-weight:700;color:var(--green);
@@ -1744,7 +1751,7 @@ async function saveAllEcRows(){
 /* ---------- headcount tab ---------- */
 const HEADCOUNT_GROUPS = [
   { label: 'Morning', keyLabel: 'Session 1', sessions: ['S1'] },
-  { label: 'Afternoon', keyLabel: 'Session 2/3', sessions: ['S2', 'S3'] },
+  { label: 'Afternoon', keyLabel: 'Session 2 + 3 (combined)', sessions: ['S2', 'S3'] },
 ];
 
 function renderHeadcountTab(){
@@ -1808,12 +1815,61 @@ function renderHeadcountTab(){
           ${capNote}
         </div>
       </div>
+      <div class="headcount-export-row">
+        <button class="headcount-export-btn" ${total?'':'disabled'} onclick="exportHeadcountCSV('${group.label}')">Export CSV</button>
+      </div>
       <details class="headcount-details">
         <summary>View names (${total})</summary>
         <ul class="headcount-namelist">${listHtml}</ul>
       </details>
     </div>`;
   }).join('');
+}
+
+function exportHeadcountCSV(groupLabel){
+  const group = HEADCOUNT_GROUPS.find(g => g.label === groupLabel);
+  if(!group) return;
+  const confirmedPeople = PEOPLE.filter(p =>
+    group.sessions.some(s => getAssignedSessions(p.name).includes(s)) && p.attendanceStatus === 'Confirmed'
+  ).slice().sort((a,b) => a.name.localeCompare(b.name));
+
+  if(!confirmedPeople.length) return;
+
+  const rows = [];
+  confirmedPeople.forEach(p => {
+    rows.push({
+      type: 'Volunteer',
+      name: properName(p.name),
+      age: p.age ?? '',
+      country: p.country || '',
+      phone: p.phone || '',
+      note: ''
+    });
+    if(p.plusOneBringing){
+      rows.push({
+        type: 'Plus-1',
+        name: p.plusOneName ? properName(p.plusOneName) : '(name not entered)',
+        age: '',
+        country: '',
+        phone: p.plusOnePhone || '',
+        note: `+1 of ${properName(p.name)}`
+      });
+    }
+  });
+
+  const header = 'type,name,age,country,phone,note\n';
+  const body = rows.map(r => `"${r.type}","${(r.name||'').replace(/"/g,'""')}","${r.age}","${(r.country||'').replace(/"/g,'""')}","${r.phone}","${r.note.replace(/"/g,'""')}"`).join('\n');
+  const csv = header + body;
+
+  const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${groupLabel}_headcount.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
 }
 
 /* ---------- master render ---------- */
