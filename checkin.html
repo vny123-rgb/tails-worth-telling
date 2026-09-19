@@ -38,6 +38,9 @@
 
   .search-box{margin-bottom:14px;}
   .search-box input{width:100%;border:1px solid var(--border);border-radius:8px;padding:11px 14px;font-size:15px;background:var(--card);}
+  .search-filter-row{display:flex;gap:8px;margin-bottom:14px;}
+  .search-filter-row .search-box{flex:1;margin-bottom:0;}
+  .search-filter-row select{border:1px solid var(--border);border-radius:8px;padding:9px 12px;font-size:13.5px;background:var(--card);flex-shrink:0;}
 
   .checkin-item{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:10px;}
   .checkin-item.arrived{border-color:#BFE3CE;background:var(--green-soft);}
@@ -93,7 +96,15 @@
       <div class="counter-label">checked in <span id="counterPct-Morning">(0%)</span></div>
       <div class="counter-bar-track"><div class="counter-bar-fill" id="counterBar-Morning" style="width:0%;"></div></div>
     </div>
-    <div class="search-box"><input type="text" id="search-Morning" placeholder="Search name…"></div>
+    <div class="search-filter-row">
+      <div class="search-box"><input type="text" id="search-Morning" placeholder="Search name…"></div>
+      <select id="crewFilter-Morning">
+        <option value="all">All crews</option>
+        <option value="A">Crew A</option>
+        <option value="B">Crew B</option>
+        <option value="C">Crew C</option>
+      </select>
+    </div>
     <div id="list-Morning"></div>
   </div>
 
@@ -103,7 +114,15 @@
       <div class="counter-label">checked in <span id="counterPct-Afternoon">(0%)</span></div>
       <div class="counter-bar-track"><div class="counter-bar-fill" id="counterBar-Afternoon" style="width:0%;"></div></div>
     </div>
-    <div class="search-box"><input type="text" id="search-Afternoon" placeholder="Search name…"></div>
+    <div class="search-filter-row">
+      <div class="search-box"><input type="text" id="search-Afternoon" placeholder="Search name…"></div>
+      <select id="crewFilter-Afternoon">
+        <option value="all">All crews</option>
+        <option value="A">Crew A</option>
+        <option value="B">Crew B</option>
+        <option value="C">Crew C</option>
+      </select>
+    </div>
     <div id="list-Afternoon"></div>
   </div>
 
@@ -215,7 +234,8 @@ async function togglePlusOneCheckedIn(name, val){
 }
 
 function renderGroup(groupLabel){
-  const confirmed = getConfirmedFor(groupLabel);
+  const crewFilter = document.getElementById('crewFilter-'+groupLabel).value;
+  const confirmed = getConfirmedFor(groupLabel).filter(p => crewFilter === 'all' || p.crew === crewFilter);
   const totalVolunteers = confirmed.length;
   const totalPlusOnes = confirmed.filter(p => p.plusOneBringing).length;
   const totalHeadcount = totalVolunteers + totalPlusOnes;
@@ -322,6 +342,8 @@ document.querySelectorAll('.tabbtn').forEach(btn => {
 
 document.getElementById('search-Morning').addEventListener('input', () => renderGroup('Morning'));
 document.getElementById('search-Afternoon').addEventListener('input', () => renderGroup('Afternoon'));
+document.getElementById('crewFilter-Morning').addEventListener('change', () => renderGroup('Morning'));
+document.getElementById('crewFilter-Afternoon').addEventListener('change', () => renderGroup('Afternoon'));
 document.getElementById('search-Emergency').addEventListener('input', renderEmergencyTab);
 
 (async function init(){
