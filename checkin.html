@@ -64,6 +64,7 @@
   .vip-remark{font-weight:400;color:var(--muted);text-transform:none;letter-spacing:0;font-size:12px;}
   .sponsor-brand-box{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 12px;margin-bottom:8px;}
   .sponsor-brand-head{font-weight:700;font-size:13.5px;margin-bottom:8px;}
+  .sponsor-brand-head-row{display:flex;justify-content:space-between;align-items:center;gap:10px;}
   .sponsor-brand-count{font-weight:400;color:var(--muted);font-size:12px;}
 
   .checkin-btn{
@@ -300,12 +301,23 @@ function renderGroup(groupLabel){
           const arrivedCount = slots.filter(s => s.checkedIn).length;
           const remark = slots[0].remark ? ` <span class="vip-remark">{${slots[0].remark}}</span>` : '';
           const isMulti = slots.length > 1;
+          if(!isMulti){
+            const s = slots[0];
+            return `
+              <div class="sponsor-brand-box">
+                <div class="sponsor-brand-head-row">
+                  <div class="sponsor-brand-head" style="margin-bottom:0;">${brand}${remark} <span class="sponsor-brand-count">(${arrivedCount}/1)</span></div>
+                  <button class="checkin-btn ${s.checkedIn?'done':''}" onclick="toggleSponsorArrived('${groupLabel}', ${s.idx}, ${!s.checkedIn})">${s.checkedIn ? '✓ Arrived' : 'Mark Arrived'}</button>
+                </div>
+              </div>
+            `;
+          }
           return `
             <div class="sponsor-brand-box">
               <div class="sponsor-brand-head">${brand}${remark} <span class="sponsor-brand-count">(${arrivedCount}/${slots.length})</span></div>
               ${slots.map(s => `
                 <div class="checkin-item ${s.checkedIn?'arrived':''}" style="margin-bottom:6px;">
-                  <div class="checkin-info">${isMulti ? `<div class="checkin-name">#${s.slot}</div>` : ''}</div>
+                  <div class="checkin-info"><div class="checkin-name">#${s.slot}</div></div>
                   <button class="checkin-btn ${s.checkedIn?'done':''}" onclick="toggleSponsorArrived('${groupLabel}', ${s.idx}, ${!s.checkedIn})">${s.checkedIn ? '✓ Arrived' : 'Mark Arrived'}</button>
                 </div>
               `).join('')}
