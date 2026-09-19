@@ -52,6 +52,12 @@
   .tag-exp{background:var(--plum-soft);color:var(--plum);}
   .tag-plusone-item{background:var(--amber-soft);color:var(--amber);}
   .tag-crew{background:var(--green-soft);color:var(--green);}
+  .sponsor-heading{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.03em;margin:4px 0 8px;}
+  .sponsor-brand-box{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 12px;margin-bottom:8px;}
+  .sponsor-brand-head{font-weight:700;font-size:13.5px;margin-bottom:8px;}
+  .sponsor-brand-count{font-weight:400;color:var(--muted);font-size:12px;}
+  .sponsor-slot-row{display:flex;gap:6px;flex-wrap:wrap;}
+  .sponsor-slot-btn{padding:7px 12px;font-size:12.5px;border-radius:8px;}
 
   .checkin-btn{
     flex-shrink:0;border:1px solid var(--green);color:var(--green);background:#fff;border-radius:20px;
@@ -96,6 +102,7 @@
       <div class="counter-label">checked in <span id="counterPct-Morning">(0%)</span></div>
       <div class="counter-bar-track"><div class="counter-bar-fill" id="counterBar-Morning" style="width:0%;"></div></div>
     </div>
+    <div id="sponsors-Morning"></div>
     <div class="search-filter-row">
       <div class="search-box"><input type="text" id="search-Morning" placeholder="Search name…"></div>
       <select id="crewFilter-Morning">
@@ -114,6 +121,7 @@
       <div class="counter-label">checked in <span id="counterPct-Afternoon">(0%)</span></div>
       <div class="counter-bar-track"><div class="counter-bar-fill" id="counterBar-Afternoon" style="width:0%;"></div></div>
     </div>
+    <div id="sponsors-Afternoon"></div>
     <div class="search-filter-row">
       <div class="search-box"><input type="text" id="search-Afternoon" placeholder="Search name…"></div>
       <select id="crewFilter-Afternoon">
@@ -140,6 +148,7 @@ const HEADCOUNT_GROUPS = {
 };
 
 let PEOPLE = [];
+let SPONSORS = { Morning: [], Afternoon: [] };
 let activeTab = 'Morning';
 
 function mapVolunteerRow(row){
@@ -186,7 +195,7 @@ async function loadData(){
   try{
     const [{ data: volRows, error: volErr }, { data: dsRow, error: dsErr }] = await Promise.all([
       sb.from('volunteers').select('*'),
-      sb.from('dashboard_state').select('assignments').eq('id','main').single()
+      sb.from('dashboard_state').select('assignments, sponsors').eq('id','main').single()
     ]);
     if(volErr) throw volErr;
     if(dsErr) throw dsErr;
@@ -196,6 +205,7 @@ async function loadData(){
     PEOPLE.forEach(p => {
       p.sessionsAssigned = ['S1','S2','S3'].filter(s => (assignments[s]||[]).includes(p.name));
     });
+    SPONSORS = dsRow.sponsors || { Morning: [], Afternoon: [] };
 
     document.getElementById('loadstate').textContent = 'Live — connected.';
   }catch(e){
@@ -233,21 +243,65 @@ async function togglePlusOneCheckedIn(name, val){
   renderAll();
 }
 
+async function toggleSponsorArrived(groupLabel, idx, val){
+  if(!SPONSORS[groupLabel] || !SPONSORS[groupLabel][idx]) return;
+  SPONSORS[groupLabel][idx].checkedIn = val;
+  try{
+    await sb.from('dashboard_state').update({ sponsors: SPONSORS }).eq('id','main');
+  }catch(e){ console.error(e); }
+  renderAll();
+}
+
 function renderGroup(groupLabel){
   const crewFilter = document.getElementById('crewFilter-'+groupLabel).value;
   const confirmed = getConfirmedFor(groupLabel).filter(p => crewFilter === 'all' || p.crew === crewFilter);
   const totalVolunteers = confirmed.length;
   const totalPlusOnes = confirmed.filter(p => p.plusOneBringing).length;
-  const totalHeadcount = totalVolunteers + totalPlusOnes;
+
+  // Sponsors aren't tied to any crew, so only fold them into the count on the "All crews" view
+  const sponsorSlots = crewFilter === 'all' ? (SPONSORS[groupLabel] || []) : [];
+  const sponsorTotalPax = sponsorSlots.length; // 1 slot = 1 pax
+  const sponsorArrivedPax = sponsorSlots.filter(s => s.checkedIn).length;
+
+  const totalHeadcount = totalVolunteers + totalPlusOnes + sponsorTotalPax;
 
   const arrivedVolunteers = confirmed.filter(p => p.checkedIn).length;
   const arrivedPlusOnes = confirmed.filter(p => p.plusOneBringing && p.plusOneCheckedIn).length;
-  const arrivedTotal = arrivedVolunteers + arrivedPlusOnes;
+  const arrivedTotal = arrivedVolunteers + arrivedPlusOnes + sponsorArrivedPax;
 
   document.getElementById('counterNum-'+groupLabel).textContent = `${arrivedTotal} / ${totalHeadcount}`;
   const pct = totalHeadcount ? Math.round((arrivedTotal/totalHeadcount)*100) : 0;
   document.getElementById('counterPct-'+groupLabel).textContent = `(${pct}%)`;
   document.getElementById('counterBar-'+groupLabel).style.width = pct + '%';
+
+  // Sponsor section — group slots by brand for display, but each slot keeps its own toggle
+  const sponsorWrap = document.getElementById('sponsors-'+groupLabel);
+  if(!sponsorSlots.length){
+    sponsorWrap.innerHTML = '';
+  } else {
+    const byBrand = {};
+    sponsorSlots.forEach((s, i) => {
+      byBrand[s.brand] = byBrand[s.brand] || [];
+      byBrand[s.brand].push({ ...s, idx: i });
+    });
+
+    sponsorWrap.innerHTML = `
+      <div class="sponsor-heading">Sponsors (${sponsorArrivedPax} / ${sponsorTotalPax} pax arrived)</div>
+      ${Object.entries(byBrand).map(([brand, slots]) => {
+        const arrivedCount = slots.filter(s => s.checkedIn).length;
+        return `
+          <div class="sponsor-brand-box">
+            <div class="sponsor-brand-head">${brand} <span class="sponsor-brand-count">(${arrivedCount}/${slots.length})</span></div>
+            <div class="sponsor-slot-row">
+              ${slots.map(s => `
+                <button class="checkin-btn sponsor-slot-btn ${s.checkedIn?'done':''}" onclick="toggleSponsorArrived('${groupLabel}', ${s.idx}, ${!s.checkedIn})">#${s.slot} ${s.checkedIn ? '✓' : ''}</button>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      }).join('')}
+    `;
+  }
 
   const search = (document.getElementById('search-'+groupLabel).value || '').trim().toLowerCase();
   const searchDigits = search.replace(/\D/g, '');
